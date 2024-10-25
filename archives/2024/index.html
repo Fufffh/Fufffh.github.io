@@ -1628,7 +1628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1729786782882),
+    lastupdate: new Date(1729871713321),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2413,9 +2413,62 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://fufffh.github.io/2024/10/25/线性dp/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Fufffh's Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="Fufffh's Blog">
+    <meta itemprop="description" content="个人博客">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/10/25/%E7%BA%BF%E6%80%A7dp/"  itemprop="url">
+        线性dp
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-10-25T23:41:13+08:00">2024-10-25</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/10/25/%E7%BA%BF%E6%80%A7dp/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -2446,10 +2499,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md article-desc' itemprop="articleBody">
     
       
-        一、动态规划的介绍
-动态规划(Dynamic Programming)，简称DP，是运筹学的一个分支，用于解决多阶段决策过程中的最优化的一种数学方法，把多阶段问题变换为系列单阶段的问题加以解决的方法。
-所以动态规划其实是一种数学方法，是求解某类问题的一种方法，而不是一种特定的算法，更没有标准的数学表达式或者明确的定义的一种规则。
-动态规划的根本是一种解决问题的思路，思考问题的方式，而不是具体...
+        动态规划的介绍动态规划(Dynamic Programming)，简称DP，是运筹学的一个分支，用于解决多阶段决策过程中的最优化的一种数学方法，把多阶段问题变换为系列单阶段的问题加以解决的方法。
+所以动态规划其实是一种数学方法，是求解某类问题的一种方法，不是一种特定的算法，更没有标准的数学表达式或者明确的定义的一种规则。
+动态规划的根本是一种解决问题的思路，思考问题的方式，而不是具体的方法。...
       
     
   </div>
@@ -2505,12 +2557,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。
-BFS的工作原理可以总结为以下几个步骤：
-
+BFS的工作原理可以总结为以下几个步骤
 循环：只要队列不为空，就执行以下操作：
 出队一个节点（我们称之为当前节点）。
-访问当前节点的所有未访问的邻居节点。
-将每个未访问的邻居节点标记为已...
+访问当前节点的所有未访问的邻居节点（子节点）。
+将每个未访问的邻居节点（...
       
     
   </div>
@@ -2566,10 +2617,9 @@ BFS的工作原理可以总结为以下几个步骤：
     
       
         DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。
-DFS的工作原理可以总结为以下几个步骤：
-
+DFS的工作原理可以总结为以下几个步骤
 选择一个起始节点：从树或图的某个节点开始。
-探索尽可能深的分支：从当前节点开始，选...
+探索尽可能深的分支：从当前节点开始，选择一...
       
     
   </div>
@@ -2700,7 +2750,7 @@ DFS的工作原理可以总结为以下几个步骤：
 
 
     <div class='content'>
-      <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 14px; color: #999">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 24px; color: #555">算法——基础</a>
+      <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 14px; color: #999">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 14px; color: #999">算法——基础</a>
     </div>
   </section>
 

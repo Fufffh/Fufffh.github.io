@@ -1628,7 +1628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1729786782882),
+    lastupdate: new Date(1729871713321),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2447,12 +2447,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。
-BFS的工作原理可以总结为以下几个步骤：
-
+BFS的工作原理可以总结为以下几个步骤
 循环：只要队列不为空，就执行以下操作：
 出队一个节点（我们称之为当前节点）。
-访问当前节点的所有未访问的邻居节点。
-将每个未访问的邻居节点标记为已...
+访问当前节点的所有未访问的邻居节点（子节点）。
+将每个未访问的邻居节点（...
       
     
   </div>
@@ -2508,10 +2507,9 @@ BFS的工作原理可以总结为以下几个步骤：
     
       
         DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。
-DFS的工作原理可以总结为以下几个步骤：
-
+DFS的工作原理可以总结为以下几个步骤
 选择一个起始节点：从树或图的某个节点开始。
-探索尽可能深的分支：从当前节点开始，选...
+探索尽可能深的分支：从当前节点开始，选择一...
       
     
   </div>
@@ -2643,7 +2641,7 @@ DFS的工作原理可以总结为以下几个步骤：
 
 
     <div class='content'>
-      <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 14px; color: #999">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 24px; color: #555">算法——基础</a>
+      <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 14px; color: #999">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 14px; color: #999">算法——基础</a>
     </div>
   </section>
 
