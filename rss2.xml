@@ -9,8 +9,67 @@
     <atom:link href="https://fufffh.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>个人博客</description>
-    <pubDate>Sat, 26 Oct 2024 10:45:04 GMT</pubDate>
+    <pubDate>Sat, 26 Oct 2024 13:43:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>并查集</title>
+      <link>https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link>
+      <guid>https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/</guid>
+      <pubDate>Sat, 26 Oct 2024 12:00:48 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">数据结构——入门</category>
+      
+      
+      <comments>https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>堆（heap）</title>
+      <link>https://fufffh.github.io/2024/10/26/%E5%A0%86%EF%BC%88heap%EF%BC%89/</link>
+      <guid>https://fufffh.github.io/2024/10/26/%E5%A0%86%EF%BC%88heap%EF%BC%89/</guid>
+      <pubDate>Sat, 26 Oct 2024 11:57:03 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">数据结构——入门</category>
+      
+      
+      <comments>https://fufffh.github.io/2024/10/26/%E5%A0%86%EF%BC%88heap%EF%BC%89/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>栈（stack）</title>
+      <link>https://fufffh.github.io/2024/10/26/%E6%A0%88%EF%BC%88stack%EF%BC%89/</link>
+      <guid>https://fufffh.github.io/2024/10/26/%E6%A0%88%EF%BC%88stack%EF%BC%89/</guid>
+      <pubDate>Sat, 26 Oct 2024 11:19:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;什么是栈？&quot;&gt;&lt;a href=&quot;#什么是栈？&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">数据结构——入门</category>
+      
+      
+      <comments>https://fufffh.github.io/2024/10/26/%E6%A0%88%EF%BC%88stack%EF%BC%89/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>队列（queue）</title>
