@@ -1628,7 +1628,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1729871713321),
+    lastupdate: new Date(1729932553981),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2415,9 +2415,66 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="https://fufffh.github.io/2024/10/26/队列（queue）/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Fufffh's Blog">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="Fufffh's Blog">
+    <meta itemprop="description" content="个人博客">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/"  itemprop="url">
+        队列（queue）
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        什么是队列？队列（queue）是一种数据结构,它的特点是只允许从队尾入队，从队列头部出队，满足先进先出的性质，即先进入队列的元素先出队列。可以把它理解为排队排在前一个人的后面。比如数字1 5 7 9 2的队列，插入一个元素3，应该插入到队尾，成为3 1 5 7 9 2，再插入一个5，应该排到3的前面，变成5 3 1 5 7 9 2，出队一个头部元素2，则成为3 1 5 7 9，所以满足先进队...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time itemprop="dateCreated datePublished" datetime="2024-10-26T14:59:45+08:00">2024-10-26</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -2446,6 +2503,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     </h2>
   
   <div class='md article-desc' itemprop="articleBody">
+    
+      
+        对于线性动态规划，顾名思义指的就是根据题目内容可以得出线性相关的动态规划，如果书有序列（数组）那么状态就是一维的，如果是网格（棋盘）那么就是二维的。前文引例中的题目便是这种类型的。线性动态规划定义状态通常会考虑某类有序事件前面若干子事件的和
+接下来我们给出例题
+[HNOI2004] 打鼹鼠题目描述
+鼹鼠是一种很喜欢挖洞的动物，但每过一定的时间，它还是喜欢把头探出到地面上来透透气的。根据这个特...
+      
     
   </div>
   
@@ -2556,12 +2620,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class='md article-desc' itemprop="articleBody">
     
       
-        BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。
-BFS的工作原理可以总结为以下几个步骤
+        前置知识注意 该算法的前置知识为队列（queue）,如果没有学习，请点击这里进行学习
+BFS的介绍BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。
+工作原理BFS的工作原理可以总结为以下几个步骤
+
 循环：只要队列不为空，就执行以下操作：
-出队一个节点（我们称之为当前节点）。
-访问当前节点的所有未访问的邻居节点（子节点）。
-将每个未访问的邻居节点（...
+出...
       
     
   </div>
@@ -2616,10 +2680,11 @@ BFS的工作原理可以总结为以下几个步骤
   <div class='md article-desc' itemprop="articleBody">
     
       
-        DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。
-DFS的工作原理可以总结为以下几个步骤
+        DFS的介绍DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。
+工作原理DFS的工作原理可以总结为以下几个步骤
+
 选择一个起始节点：从树或图的某个节点开始。
-探索尽可能深的分支：从当前节点开始，选择一...
+探索尽可能深的分支：...
       
     
   </div>
@@ -2750,7 +2815,7 @@ DFS的工作原理可以总结为以下几个步骤
 
 
     <div class='content'>
-      <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 14px; color: #999">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 14px; color: #999">算法——基础</a>
+      <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">数据结构——入门</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94DP/" style="font-size: 24px; color: #555">算法——DP</a> <a href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" style="font-size: 24px; color: #555">算法——基础</a>
     </div>
   </section>
 

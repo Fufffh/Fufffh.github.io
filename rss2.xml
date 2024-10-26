@@ -9,14 +9,47 @@
     <atom:link href="https://fufffh.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>个人博客</description>
-    <pubDate>Fri, 25 Oct 2024 15:41:34 GMT</pubDate>
+    <pubDate>Sat, 26 Oct 2024 08:35:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>队列（queue）</title>
+      <link>https://fufffh.github.io/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/</link>
+      <guid>https://fufffh.github.io/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/</guid>
+      <pubDate>Sat, 26 Oct 2024 06:59:45 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;什么是队列？&quot;&gt;&lt;a href=&quot;#什么是队列？&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">数据结构——入门</category>
+      
+      
+      <comments>https://fufffh.github.io/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>线性dp</title>
       <link>https://fufffh.github.io/2024/10/25/%E7%BA%BF%E6%80%A7dp/</link>
       <guid>https://fufffh.github.io/2024/10/25/%E7%BA%BF%E6%80%A7dp/</guid>
       <pubDate>Fri, 25 Oct 2024 15:41:13 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;对于线性动态规划，顾名思义指的就是根据题目内容可以得出线性相关的动态规划，如果书有序列（数组）那么状态就是一维的，如果是网格（棋盘）那么就是二维的。前文引例中的题目便是这种类型的。线性动态规划定义状态通常会考虑&lt;strong&gt;某类有序事件前面若干子事件的和&lt;/strong&gt;</description>
+          
+        
       
       
       
@@ -39,7 +72,7 @@
         
           
           
-      <description>&lt;h1 id=&quot;动态规划的介绍&quot;&gt;&lt;a href=&quot;#动态规划的介绍&quot; class=&quot;headerlink&quot; title=&quot;动态规划的介绍&quot;&gt;&lt;/a&gt;动态规划的介绍&lt;/h1&gt;&lt;p&gt;动态规划(Dynamic</description>
+      <description>&lt;h2 id=&quot;动态规划的介绍&quot;&gt;&lt;a href=&quot;#动态规划的介绍&quot; class=&quot;headerlink&quot; title=&quot;动态规划的介绍&quot;&gt;&lt;/a&gt;动态规划的介绍&lt;/h2&gt;&lt;p&gt;动态规划(Dynamic</description>
           
         
       
@@ -64,8 +97,7 @@
         
           
           
-      <description>&lt;p&gt;BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。&lt;/p&gt;
-&lt;h1</description>
+      <description>&lt;h2 id=&quot;前置知识&quot;&gt;&lt;a href=&quot;#前置知识&quot; class=&quot;headerlink&quot; title=&quot;前置知识&quot;&gt;&lt;/a&gt;前置知识&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;</description>
           
         
       
@@ -90,7 +122,7 @@
         
           
           
-      <description>&lt;p&gt;DFS（深度优先搜索，Depth-First</description>
+      <description>&lt;h2 id=&quot;DFS的介绍&quot;&gt;&lt;a href=&quot;#DFS的介绍&quot; class=&quot;headerlink&quot; title=&quot;DFS的介绍&quot;&gt;&lt;/a&gt;DFS的介绍&lt;/h2&gt;&lt;p&gt;DFS（深度优先搜索，Depth-First</description>
           
         
       
