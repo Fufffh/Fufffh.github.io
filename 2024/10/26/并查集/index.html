@@ -32,21 +32,21 @@
 <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
   <!-- feed -->
-      <link rel="alternate" href="/rss2.xml" title="Fufffh's Blog" type="application/rss+xml">
+      <link rel="alternate" href="/rss2.xml" title="小付同学的博客" type="application/rss+xml">
   <!-- 页面元数据 -->
-  <title>并查集 - Fufffh's Blog</title>
+  <title>并查集 - 小付同学的博客</title>
   <meta name="keywords" content="数据结构——入门,学术, 前端, 算法">
-  <meta desc name="description" content="个人博客 - Fufffh - Fufffh's Blog">
+  <meta desc name="description" content="个人博客 - Fufffh - 小付同学的博客">
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="并查集">
 <meta property="og:url" content="https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/index.html">
-<meta property="og:site_name" content="Fufffh&#39;s Blog">
-<meta property="og:description" content="个人博客">
+<meta property="og:site_name" content="小付同学的博客">
+<meta property="og:description" content="什么是并查集？并查集（Union-Find）是一种数据结构，主要用于处理动态连通性问题。它支持高效的合并（Union）和查询（Find）操作，常用于解决图的连通性、集合的合并等问题。 代码示范1234567891011121314151617181920212223242526272829303132333435363738#include&lt;iostream&gt;#include&lt;c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-10-26T12:00:48.000Z">
-<meta property="article:modified_time" content="2024-10-26T13:43:16.848Z">
+<meta property="article:modified_time" content="2024-10-26T16:28:59.872Z">
 <meta property="article:author" content="Fufffh">
 <meta property="article:tag" content="数据结构——入门">
 <meta name="twitter:card" content="summary">
@@ -1630,7 +1630,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1729950612731),
+    lastupdate: new Date(1729960190292),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2406,10 +2406,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
   <link itemprop="mainEntityOfPage" href="https://fufffh.github.io/2024/10/26/并查集/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Fufffh's Blog">
+    <meta itemprop="name" content="小付同学的博客">
   </span>
   <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="Fufffh's Blog">
+    <meta itemprop="name" content="小付同学的博客">
     <meta itemprop="description" content="个人博客">
   </span>
   
@@ -2472,7 +2472,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    
+    <h1 id="什么是并查集？"><a href="#什么是并查集？" class="headerlink" title="什么是并查集？"></a>什么是并查集？</h1><p>并查集（Union-Find）是一种数据结构，主要用于处理动态连通性问题。它支持高效的合并（Union）和查询（Find）操作，常用于解决图的连通性、集合的合并等问题。</p>
+<h2 id="代码示范"><a href="#代码示范" class="headerlink" title="代码示范"></a>代码示范</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXN 1000005</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,p;</span><br><span class="line"><span class="type">int</span> f[MAXN];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span>(f[x] == x) <span class="keyword">return</span> f[x];</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">find</span>(f[x]);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;m,&amp;p);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		f[i] = i;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span> ;i &lt;= m; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">int</span> a,b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">		a = <span class="built_in">find</span>(a);</span><br><span class="line">		b = <span class="built_in">find</span>(b);</span><br><span class="line">		<span class="keyword">if</span>(a!=b)</span><br><span class="line">			f[a] = b;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= p; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">int</span> a,b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">		a = <span class="built_in">find</span>(a);</span><br><span class="line">		b = <span class="built_in">find</span>(b);</span><br><span class="line">		<span class="keyword">if</span>(a==b)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1551">https://www.luogu.com.cn/problem/P1551</a><br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/2008/problem/D">https://codeforces.com/contest/2008/problem/D</a></p>
+<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
   </div>
   
   
@@ -2496,10 +2500,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-10-26T21:43:16+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-10-27T00:28:59+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2024年10月26日</p>
+    <p>更新于：2024年10月27日</p>
   </a>
 </div>
 
@@ -2522,7 +2526,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - Fufffh's Blog&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - 小付同学的博客&summary="
           
           >
           
@@ -2534,7 +2538,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - Fufffh's Blog&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - 小付同学的博客&summary="
           
           >
           
@@ -2546,7 +2550,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - Fufffh's Blog&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/&title=并查集 - 小付同学的博客&summary="
           
           >
           
@@ -2582,7 +2586,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='next' href='/2024/10/26/%E5%A0%86%EF%BC%88heap%EF%BC%89/'>
           <p class='title'>堆（heap）<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'></p>
+          <p class='content'>前置知识：注意：实现堆需要用到完全二叉树的知识，如果未学习，点击了我也没用，因为我还没写
+什么是堆？堆（heap），又叫二叉堆，是一种基于完全二叉树实现的数据结构，它可以实现在堆顶的元素是整个堆...</p>
         </a>
       
     </div>
@@ -2630,9 +2635,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E8%8C%83"><span class="toc-text">代码示范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-text">例题</span></a></li></ol>
+    </div>
+  </section>
 
   
 
@@ -3223,7 +3238,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Fufffh's Blog","url":"https://fufffh.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人博客"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://fufffh.github.io/","name":"Fufffh's Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"https://fufffh.github.io/2024/10/26/并查集/","name":"并查集"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Fufffh's Blog","url":"https://fufffh.github.io/","keywords":"学术, 前端, 算法","description":"个人博客","author":{"@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/","description":"个人博客"},"publisher":{"@type":"Organization","name":"Fufffh's Blog","url":"https://fufffh.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://fufffh.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"并查集","description":"个人博客","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/"},"author":{"@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/"},"publisher":{"@type":"Organization","name":"Fufffh's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/","wordCount":0,"datePublished":"2024-10-26T12:00:48.000Z","dateModified":"2024-10-26T13:43:16.848Z","keywords":"数据结构——入门","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"小付同学的博客","url":"https://fufffh.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/","sameAs":["https://github.com/volantis-x"],"description":"个人博客"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://fufffh.github.io/","name":"小付同学的博客"}},{"@type":"ListItem","position":3,"item":{"@id":"https://fufffh.github.io/2024/10/26/并查集/","name":"并查集"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"小付同学的博客","url":"https://fufffh.github.io/","keywords":"学术, 前端, 算法","description":"个人博客","author":{"@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/","description":"个人博客"},"publisher":{"@type":"Organization","name":"小付同学的博客","url":"https://fufffh.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://fufffh.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"并查集","description":"个人博客","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/"},"author":{"@type":"Person","name":"Fufffh","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://fufffh.github.io/"},"publisher":{"@type":"Organization","name":"小付同学的博客","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://fufffh.github.io/2024/10/26/%E5%B9%B6%E6%9F%A5%E9%9B%86/","wordCount":0,"datePublished":"2024-10-26T12:00:48.000Z","dateModified":"2024-10-26T16:28:59.872Z","keywords":"数据结构——入门","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
