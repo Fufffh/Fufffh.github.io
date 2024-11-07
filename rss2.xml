@@ -9,8 +9,33 @@
     <atom:link href="https://fufffh.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>个人博客</description>
-    <pubDate>Mon, 28 Oct 2024 15:19:00 GMT</pubDate>
+    <pubDate>Thu, 07 Nov 2024 13:33:25 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Python基础教程</title>
+      <link>https://fufffh.github.io/2024/11/07/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</link>
+      <guid>https://fufffh.github.io/2024/11/07/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</guid>
+      <pubDate>Thu, 07 Nov 2024 07:45:45 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;注意&quot;&gt;&lt;a href=&quot;#注意&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%9C%AC%E7%A7%91%E6%95%99%E5%AD%A6%E7%9F%A5%E8%AF%86/">本科教学知识</category>
+      
+      
+      <comments>https://fufffh.github.io/2024/11/07/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>C++中的常见运算符</title>
