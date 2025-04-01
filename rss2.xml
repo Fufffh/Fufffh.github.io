@@ -9,8 +9,58 @@
     <atom:link href="https://fufffh.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>个人博客</description>
-    <pubDate>Wed, 19 Feb 2025 09:13:50 GMT</pubDate>
+    <pubDate>Tue, 01 Apr 2025 15:19:25 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>图论基础—图的存储</title>
+      <link>https://fufffh.github.io/2025/04/01/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/</link>
+      <guid>https://fufffh.github.io/2025/04/01/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/</guid>
+      <pubDate>Tue, 01 Apr 2025 14:05:05 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h1&gt;&lt;h2 id=&quot;本文目录&quot;&gt;&lt;a href=&quot;#本文目录&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E5%9B%BE%E8%AE%BA/">图论</category>
+      
+      
+      <comments>https://fufffh.github.io/2025/04/01/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>模意义下的数和运算</title>
+      <link>https://fufffh.github.io/2025/02/19/%E6%A8%A1%E6%84%8F%E4%B9%89%E4%B8%8B%E7%9A%84%E6%95%B0%E5%92%8C%E8%BF%90%E7%AE%97/</link>
+      <guid>https://fufffh.github.io/2025/02/19/%E6%A8%A1%E6%84%8F%E4%B9%89%E4%B8%8B%E7%9A%84%E6%95%B0%E5%92%8C%E8%BF%90%E7%AE%97/</guid>
+      <pubDate>Wed, 19 Feb 2025 09:34:09 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h1&gt;&lt;h2 id=&quot;本文目录&quot;&gt;&lt;a href=&quot;#本文目录&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://fufffh.github.io/tags/%E6%95%B0%E8%AE%BA/">数论</category>
+      
+      
+      <comments>https://fufffh.github.io/2025/02/19/%E6%A8%A1%E6%84%8F%E4%B9%89%E4%B8%8B%E7%9A%84%E6%95%B0%E5%92%8C%E8%BF%90%E7%AE%97/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>基础数论入门</title>
