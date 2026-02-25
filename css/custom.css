@@ -8,7 +8,7 @@
   line-height: 2;
   color: rgb(76, 73, 72);
   letter-spacing: 0.2px;
-  max-width: 880px;   /* 944px 有点宽，我建议 820~900 之间 */
+  max-width: 880px;
   margin: 0 auto;
 }
 
@@ -37,7 +37,6 @@ pre code,
 code {
   font-family: "Fira Code", Consolas, monospace !important;
 
-  /* 强制启用连字 */
   font-variant-ligatures: contextual;
   font-feature-settings: "calt" 1, "liga" 1;
 }
