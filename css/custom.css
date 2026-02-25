@@ -1,6 +1,9 @@
 /* ===== 正文字体与排版 ===== */
 #article-container {
-  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif !important;
+  font-family:
+    "Inter",
+    "Noto Sans SC",
+    sans-serif !important;
   font-size: 16px;
   line-height: 2;
   color: rgb(76, 73, 72);
@@ -33,8 +36,11 @@
 pre code,
 code {
   font-family: "Fira Code", Consolas, monospace !important;
-}
 
+  /* 强制启用连字 */
+  font-variant-ligatures: contextual;
+  font-feature-settings: "calt" 1, "liga" 1;
+}
 .MathJax {
   font-size: 1em !important;
 }
