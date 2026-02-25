@@ -1,0 +1,40 @@
+/* ===== 正文字体与排版 ===== */
+#article-container {
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif !important;
+  font-size: 16px;
+  line-height: 2;
+  color: rgb(76, 73, 72);
+  letter-spacing: 0.2px;
+  max-width: 880px;   /* 944px 有点宽，我建议 820~900 之间 */
+  margin: 0 auto;
+}
+
+/* 段落间距 */
+#article-container p {
+  margin: 0 0 16px;
+}
+
+/* 标题优化 */
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 1.2em;
+}
+
+/* ===== 代码字体 ===== */
+.highlight,
+.highlight pre,
+.highlight code,
+pre code,
+code {
+  font-family: "Fira Code", Consolas, monospace !important;
+}
+
+.MathJax {
+  font-size: 1em !important;
+}

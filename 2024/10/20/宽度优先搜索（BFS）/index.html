@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-TN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>宽度优先搜索（BFS） | Fufffh's Blog</title><meta name="author" content="Fufffh"><meta name="copyright" content="Fufffh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前置知识注意 该算法的前置知识为队列（queue）,如果没有学习，请点击这里进行学习 BFS的介绍BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。 工作原理BFS的工作原理可以总结为以下几个步骤  循环：只要队列不为空，就执行以下操作： 出队一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宽度优先搜索（BFS）">
+<meta property="og:url" content="http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/index.html">
+<meta property="og:site_name" content="Fufffh's Blog">
+<meta property="og:description" content="前置知识注意 该算法的前置知识为队列（queue）,如果没有学习，请点击这里进行学习 BFS的介绍BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。 工作原理BFS的工作原理可以总结为以下几个步骤  循环：只要队列不为空，就执行以下操作： 出队一个">
+<meta property="og:locale" content="zh_TN">
+<meta property="og:image" content="https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg">
+<meta property="article:published_time" content="2024-10-20T04:19:04.000Z">
+<meta property="article:modified_time" content="2024-10-28T15:19:12.520Z">
+<meta property="article:author" content="Fufffh">
+<meta property="article:tag" content="算法——基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "宽度优先搜索（BFS）",
+  "url": "http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/",
+  "image": "https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg",
+  "datePublished": "2024-10-20T04:19:04.000Z",
+  "dateModified": "2024-10-28T15:19:12.520Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Fufffh",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '宽度优先搜索（BFS）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5.0.12/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fira-code@5.0.18/index.css"><link rel="stylesheet" href="https://ai.tianli0.top/static/public/tianli_gpt.min.css"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg" style="background-color: #f7f9fe;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.pexels.com/photos/1229042/pexels-photo-1229042.jpeg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Fufffh's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">宽度优先搜索（BFS）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">宽度优先搜索（BFS）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-10-20T04:19:04.000Z" title="Created 2024-10-20 12:19:04">2024-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-10-28T15:19:12.520Z" title="Updated 2024-10-28 23:19:12">2024-10-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a class="disqus-comment-count" href="http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/#post-comment"><i class="fa-solid fa-spinner fa-spin"></i></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="postchat_postcontent"><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p><strong>注意</strong> 该算法的前置知识为<strong>队列（queue）</strong>,如果没有学习，<a target="_blank" rel="noopener" href="https://fufffh.github.io/2024/10/26/%E9%98%9F%E5%88%97%EF%BC%88queue%EF%BC%89/">请点击这里进行学习</a></p>
+<h2 id="BFS的介绍"><a href="#BFS的介绍" class="headerlink" title="BFS的介绍"></a>BFS的介绍</h2><p>BFS（宽度优先搜索 Breadth-First Search）是一种用于图的遍历或搜索的算法。它从一个节点开始，逐层遍历图中的所有节点。BFS通常用队列来实现，因为它需要按照节点的发现顺序来访问它们。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>BFS的工作原理可以总结为以下几个步骤</p>
+<ol>
+<li>循环：只要队列不为空，就执行以下操作：</li>
+<li>出队一个节点（我们称之为当前节点）。</li>
+<li>访问当前节点的所有未访问的<strong>邻居节点（子节点）</strong>。</li>
+<li>将每个未访问的邻居节点（子节点）标记为已访问，并将其<strong>入队</strong>。</li>
+</ol>
+<h3 id="BFS算法的特点"><a href="#BFS算法的特点" class="headerlink" title="BFS算法的特点"></a>BFS算法的特点</h3><ol>
+<li>层级遍历：它按层级顺序访问节点，这意味着它会先访问所有与源节点相邻的节点，然后是那些节点的邻居，以此类推。</li>
+<li>最短路径：在无权图中，BFS可以找到从源节点到其他任何节点的最短路径。</li>
+<li>时间复杂度：对于有V个顶点和E条边的图，BFS的时间复杂度是O(V+E)。</li>
+<li>空间复杂度：在最坏的情况下，BFS可能需要O(V)的空间来存储所有节点的访问状态。</li>
+</ol>
+<h3 id="图示演示"><a href="#图示演示" class="headerlink" title="图示演示"></a>图示演示</h3><p>下面进行进行图示演示：</p>
+<p>首先1为根节点<br><img src="https://s3.bmp.ovh/imgs/2024/10/26/6fbc60be0e93c01a.png"></p>
+<p>假如我们使用的是DFS，那么DFS序如下<br><img src="https://s3.bmp.ovh/imgs/2024/10/26/f5a0444728f15502.png"></p>
+<p>如果我们使用BFS，那么可以理解为按照深度对图进行分层，例如下图，分为1-4共4层，每次遍历先遍历完上一层的所有节点，接着再遍历下一层，首先根节点1入队,遍历完1之后，1的所有子节点入队，1做一次标记并且退队<br><img src="https://s3.bmp.ovh/imgs/2024/10/26/d069b4787976d7f3.png"></p>
+<p>然后接着对队列中的元素2、3、4、5进行遍历，遍历完2后将2的子节点入队并且对2做标记且让2出队，后续接着遍历完3、4、5，各自子节点入队后各自再做一次标记并退队<br><img src="https://s3.bmp.ovh/imgs/2024/10/26/d74d8b9db2b6018c.png"></p>
+<p>接着遍历队列中的元素，直到最后一个元素退队后没有新的元素入队，即队列为空，遍历结束<br><img src="https://s3.bmp.ovh/imgs/2024/10/26/d597abe77fb62a6f.png"></p>
+<h2 id="例题：马的遍历"><a href="#例题：马的遍历" class="headerlink" title="例题：马的遍历"></a>例题：马的遍历</h2><p>依然是DFS中出现的这道Luogu例题： <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1443">https://www.luogu.com.cn/problem/P1443</a> 我们接下来用BFS的方法解答一下</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> num[<span class="number">401</span>][<span class="number">401</span>]; <span class="comment">//存一下答案，num[i][j]为马到点(i,j)所需要的最小步骤数 </span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>{</span><br><span class="line">	<span class="type">int</span> x,y;</span><br><span class="line">}; <span class="comment">//定义一个结构体,存储一个点的x,y坐标 </span></span><br><span class="line">queue&lt;node&gt;q;  <span class="comment">//使用stl自带的队列 也可以自己手写一个 </span></span><br><span class="line"><span class="type">int</span> move_x[<span class="number">8</span>] = {<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-2</span>,<span class="number">-2</span>};</span><br><span class="line"><span class="type">int</span> move_y[<span class="number">8</span>] = {<span class="number">2</span>,<span class="number">-2</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">2</span>,<span class="number">-2</span>,<span class="number">1</span>,<span class="number">-1</span>}; <span class="comment">//马的八种移动方式对应的坐标变化 </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="type">int</span> n,m,begin_x,begin_y;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m&gt;&gt;begin_x&gt;&gt;begin_y;</span><br><span class="line">	<span class="built_in">memset</span>(num,<span class="number">-1</span>,<span class="built_in">sizeof</span>(num)); <span class="comment">//初始化所有答案为-1 </span></span><br><span class="line">	num[begin_x][begin_y] = <span class="number">0</span>; <span class="comment">//马到初始点的距离为1 </span></span><br><span class="line">	node tmp = {begin_x,begin_y}; <span class="comment">//将起点入队 </span></span><br><span class="line">	q.<span class="built_in">push</span>(tmp);</span><br><span class="line">	......</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接下来开始BFS，代码如下</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) <span class="comment">//队列不为空，就继续进行 </span></span><br><span class="line">{</span><br><span class="line">	node now = q.<span class="built_in">front</span>();  <span class="comment">//遍历对首并取值 </span></span><br><span class="line">	q.<span class="built_in">pop</span>(); <span class="comment">//弹出队首 </span></span><br><span class="line">	<span class="type">int</span> now_x = now.x;<span class="type">int</span> now_y = now.y; <span class="comment">//储存队首的坐标 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">int</span> next_x = now_x + move_x[i];</span><br><span class="line">		<span class="type">int</span> next_y = now_y + move_y[i];  <span class="comment">//八个坐标值变化情况 </span></span><br><span class="line">		<span class="keyword">if</span>(next_x &lt; <span class="number">1</span> || next_y &lt; <span class="number">1</span> || next_x &gt; n || next_y &gt; m || num[next_x][next_y] != <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="comment">//如果x,y坐标不符合图示，或者num[next_x][next_y] != -1,即next点已经被遍历过，舍弃该种情况 </span></span><br><span class="line">		num[next_x][next_y] = num[now_x][now_y] + <span class="number">1</span>; <span class="comment">//更新答案，下一个点位为上一个点位的距离加1 </span></span><br><span class="line">		node t = {next_x,next_y}; <span class="comment">//访问next节点 </span></span><br><span class="line">		q.<span class="built_in">push</span>(t); <span class="comment">//将next节点插入队尾 </span></span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们就完成了对所有情况的遍历，接着对答案进行输出</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">{</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)	cout&lt;&lt;num[i][j]&lt;&lt;<span class="string">"    "</span>; <span class="comment">//场宽 </span></span><br><span class="line">	cout&lt;&lt;endl; <span class="comment">//换行 </span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后我们就完成了这道题目。全部代码如下</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> num[<span class="number">401</span>][<span class="number">401</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>{</span><br><span class="line">	<span class="type">int</span> x,y;</span><br><span class="line">};</span><br><span class="line">queue&lt;node&gt;q;</span><br><span class="line"><span class="type">int</span> move_x[<span class="number">8</span>] = {<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-2</span>,<span class="number">-2</span>};</span><br><span class="line"><span class="type">int</span> move_y[<span class="number">8</span>] = {<span class="number">2</span>,<span class="number">-2</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">2</span>,<span class="number">-2</span>,<span class="number">1</span>,<span class="number">-1</span>};</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="type">int</span> n,m,begin_x,begin_y;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m&gt;&gt;begin_x&gt;&gt;begin_y;</span><br><span class="line">	<span class="built_in">memset</span>(num,<span class="number">-1</span>,<span class="built_in">sizeof</span>(num));</span><br><span class="line">	num[begin_x][begin_y] = <span class="number">0</span>;</span><br><span class="line">	node tmp = {begin_x,begin_y};</span><br><span class="line">	q.<span class="built_in">push</span>(tmp);</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">	{</span><br><span class="line">		node now = q.<span class="built_in">front</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="type">int</span> now_x = now.x;<span class="type">int</span> now_y = now.y;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">		{</span><br><span class="line">			<span class="type">int</span> next_x = now_x + move_x[i];</span><br><span class="line">			<span class="type">int</span> next_y = now_y + move_y[i];</span><br><span class="line">			<span class="keyword">if</span>(next_x &lt; <span class="number">1</span> || next_y &lt; <span class="number">1</span> || next_x &gt; n || next_y &gt; m || num[next_x][next_y] != <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">			num[next_x][next_y] = num[now_x][now_y] + <span class="number">1</span>;</span><br><span class="line">			node t = {next_x,next_y};</span><br><span class="line">			q.<span class="built_in">push</span>(t);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)	cout&lt;&lt;num[i][j]&lt;&lt;<span class="string">"    "</span>;</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Fufffh</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/">http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/">算法——基础</a></div><div class="post-share"><div class="social-share" data-image="https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/10/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88DP%EF%BC%89%E7%9A%84%E5%BC%95%E5%85%A5/" title="动态规划（DP）的引入"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">动态规划（DP）的引入</div></div><div class="info-2"><div class="info-item-1">动态规划的介绍动态规划(Dynamic Programming)，简称DP，是运筹学的一个分支，用于解决多阶段决策过程中的最优化的一种数学方法，把多阶段问题变换为系列单阶段的问题加以解决的方法。 所以动态规划其实是一种数学方法，是求解某类问题的一种方法，不是一种特定的算法，更没有标准的数学表达式或者明确的定义的一种规则。 动态规划的根本是一种解决问题的思路，思考问题的方式，而不是具体的方法。所以动态规划的难点是思想上的，在于如何学会这种思想。这导致如果我们学习不善，很多时候会构造不出来动态规划所需要的形式，甚至根本想不到这是一道动态规划的问题。 而动态规划的基本思想，就是将一个大问题分解成若干个简单的小问题来求解。其中每一个阶段都需要做出决策，从而使得整个过程达到最优。 动态规划的三个重要要素 状态动态规划的状态可以相对笼统的理解为“问题所在的局面”，例如，“从第i个数字到第j个数字的最大下降子系列”就是状态，是一种关于i,j的局面，然后“最”大下降子序列就是问题所对应的最优答案。某状态表示的答案（的值），方案（集合），在本质上相同，通常会用一个字母（$dp_i$或$f_i$）表...</div></div></div></a><a class="pagination-related" href="/2024/10/19/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88DFS%EF%BC%89/" title="深度优先搜索（DFS）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">深度优先搜索（DFS）</div></div><div class="info-2"><div class="info-item-1">DFS的介绍DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。 工作原理DFS的工作原理可以总结为以下几个步骤  选择一个起始节点：从树或图的某个节点开始。 探索尽可能深的分支：从当前节点开始，选择一个未被访问过的邻接节点，然后递归地在该节点上执行DFS。 回溯：当当前节点的所有邻接节点都被访问过，或者到达了叶子节点时，回溯到上一个节点。 重复：重复步骤2和3，直到所有节点都被访问过。  DFS的特点 栈的使用：在实现DFS时，通常使用栈数据结构来存储节点。在递归实现中，调用栈隐式地充当了栈的角色。 时间复杂度：对于有V个顶点和E条边的图，DFS的时间复杂度通常是O(V + E)。 空间复杂度：在最坏的情况下，DFS的空间复杂度也是O(V)，因为可能需要存储整个路径上的节点。 路径搜索：DFS非常适合于寻找从起点到终点的路径，尤其是在图不是非常大的情况下。 连通性问题...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/10/19/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88DFS%EF%BC%89/" title="深度优先搜索（DFS）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-19</div><div class="info-item-2">深度优先搜索（DFS）</div></div><div class="info-2"><div class="info-item-1">DFS的介绍DFS（深度优先搜索，Depth-First Search）是一种用于遍历或搜索树或图的算法。它从一个节点开始，尽可能深地搜索树的分支，直到到达叶子节点（没有子节点的节点），然后回溯到上一个节点，继续搜索其他分支。这个过程会一直进行，直到所有可能的分支都被探索完毕。 工作原理DFS的工作原理可以总结为以下几个步骤  选择一个起始节点：从树或图的某个节点开始。 探索尽可能深的分支：从当前节点开始，选择一个未被访问过的邻接节点，然后递归地在该节点上执行DFS。 回溯：当当前节点的所有邻接节点都被访问过，或者到达了叶子节点时，回溯到上一个节点。 重复：重复步骤2和3，直到所有节点都被访问过。  DFS的特点 栈的使用：在实现DFS时，通常使用栈数据结构来存储节点。在递归实现中，调用栈隐式地充当了栈的角色。 时间复杂度：对于有V个顶点和E条边的图，DFS的时间复杂度通常是O(V + E)。 空间复杂度：在最坏的情况下，DFS的空间复杂度也是O(V)，因为可能需要存储整个路径上的节点。 路径搜索：DFS非常适合于寻找从起点到终点的路径，尤其是在图不是非常大的情况下。 连通性问题...</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://telegraph-image-92x.pages.dev/file/c7e870a8afe008e931e08-c8000d260bc3fda9bd.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Fufffh</div><div class="author-info-description">用于记录技术学习和日常生活的博客</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">前置知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BFS%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">BFS的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS%E7%AE%97%E6%B3%95%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">BFS算法的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%A4%BA%E6%BC%94%E7%A4%BA"><span class="toc-number">2.3.</span> <span class="toc-text">图示演示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">3.</span> <span class="toc-text">例题：马的遍历</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/01/%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" title="图论基础—图的存储">图论基础—图的存储</a><time datetime="2025-04-01T14:05:05.000Z" title="Created 2025-04-01 22:05:05">2025-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/19/%E6%A8%A1%E6%84%8F%E4%B9%89%E4%B8%8B%E7%9A%84%E6%95%B0%E5%92%8C%E8%BF%90%E7%AE%97/" title="模意义下的数和运算">模意义下的数和运算</a><time datetime="2025-02-19T09:34:09.000Z" title="Created 2025-02-19 17:34:09">2025-02-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/18/%E5%9F%BA%E7%A1%80%E6%95%B0%E8%AE%BA%E5%85%A5%E9%97%A8/" title="基础数论入门">基础数论入门</a><time datetime="2025-02-18T13:00:53.000Z" title="Created 2025-02-18 21:00:53">2025-02-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/07/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" title="Python基础教程">Python基础教程</a><time datetime="2024-11-07T07:45:45.000Z" title="Created 2024-11-07 15:45:45">2024-11-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/27/C-%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E8%BF%90%E7%AE%97%E7%AC%A6/" title="C++中的常见运算符">C++中的常见运算符</a><time datetime="2024-10-27T14:39:29.000Z" title="Created 2024-10-27 22:39:29">2024-10-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©&nbsp;2025 - 2026 By Fufffh</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const disqusReset = conf => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: conf
+    })
+  }
+
+  const loadDisqus = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    window.disqus_identifier = isShuoshuo ? path : '/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/'
+    window.disqus_url = isShuoshuo ? location.origin + path : 'http://example.com/2024/10/20/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89/'
+
+    const disqus_config = function () {
+      this.page.url = disqus_url
+      this.page.identifier = disqus_identifier
+      this.page.title = '宽度优先搜索（BFS）'
+    }
+
+    if (window.DISQUS) disqusReset(disqus_config)
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+
+    btf.addGlobalFn('themeChange', () => disqusReset(disqus_config), 'disqus')
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Disqus' === 'Disqus'
+      ? window.shuoshuoComment = { loadComment: loadDisqus }
+      : window.loadOtherComment = loadDisqus
+    return
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div>
+    <link rel="stylesheet" href="https://ai.tianli0.top/static/public/postChatUser_summary.min.css">
+    <script>
+        let tianliGPT_key = '70b649f150276f289d1025508f60c5f58a';
+        let tianliGPT_postSelector = '#postchat_postcontent';
+        let tianliGPT_Title = '文章摘要';
+        let tianliGPT_postURL = '/^https?://[^/]+/[0-9]{4}/[0-9]{2}/[0-9]{2}/';
+        let tianliGPT_blacklist = '';
+        let tianliGPT_wordLimit = '1000';
+        let tianliGPT_typingAnimate = true;
+        let tianliGPT_theme = 'default';
+        var postChatConfig = {
+          backgroundColor: "#3e86f6",
+          bottom: "80px",
+          left: "20px",
+          fill: "#FFFFFF",
+          width: "44px",
+          frameWidth: "375px",
+          frameHeight: "600px",
+          defaultInput: true,
+          upLoadWeb: true,
+          showInviteLink: true,
+          userTitle: "PostChat",
+          userDesc: "如果你对网站的内容有任何疑问，可以来问我哦～",
+          addButton: true,
+          beginningText: "这篇文章介绍了",
+          userIcon: "https://ai.tianli0.top/static/img/PostChat.webp",
+          userMode: "magic",
+          defaultChatQuestions: ["你好","你是谁"],
+          defaultSearchQuestions: ["视频压缩","设计"]
+        };
+    </script>
+    <script data-postchat_key="70b649f150276f289d1025508f60c5f58a" src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script>
+  </body></html>
