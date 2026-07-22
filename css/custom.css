@@ -12,6 +12,7 @@
   --fufffh-surface: rgba(255, 255, 255, 0.94);
   --fufffh-surface-solid: #ffffff;
   --fufffh-text: #0f172a;
+  --fufffh-article-text: #334155;
   --fufffh-muted: #94a3b8;
   --fufffh-line: #e2e8f0;
   --fufffh-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
@@ -23,6 +24,7 @@
   --fufffh-surface: rgba(27, 35, 53, 0.94);
   --fufffh-surface-solid: #1b2335;
   --fufffh-text: #e8edf7;
+  --fufffh-article-text: #cbd5e1;
   --fufffh-secondary: #cbd5e1;
   --fufffh-muted: #aab4c7;
   --fufffh-line: rgba(211, 221, 241, 0.11);
@@ -281,16 +283,15 @@ body {
 #article-container {
   max-width: 780px;
   margin: 0 auto;
-  color: var(--fufffh-text);
+  color: var(--fufffh-article-text);
   font-family:
-    "Noto Serif SC",
-    "Source Han Serif SC",
-    "Songti SC",
-    STSong,
-    serif !important;
-  font-size: 16.5px;
-  letter-spacing: 0.012em;
-  line-height: 1.9;
+    "LXGW WenKai Screen",
+    "Noto Sans SC",
+    "Microsoft YaHei",
+    sans-serif !important;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  line-height: 1.72;
 }
 
 #article-container p {
@@ -305,15 +306,13 @@ body {
 #article-container h6 {
   color: var(--fufffh-text);
   font-family:
-    "Inter",
+    "LXGW WenKai Screen",
     "Noto Sans SC",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
+    "Microsoft YaHei",
     sans-serif !important;
-  font-weight: 720;
-  line-height: 1.42;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
 }
 
 #article-container h2 {
