@@ -125,6 +125,21 @@ body {
   padding: 38px 16px 68px;
 }
 
+/* Give article pages a wider reading area on desktop. */
+@media screen and (min-width: 901px) {
+  #body-wrap.post #content-inner.layout {
+    max-width: 1320px;
+  }
+
+  #body-wrap.post #content-inner.layout > #post {
+    width: 76%;
+  }
+
+  #body-wrap.post #content-inner.layout > #aside-content {
+    width: 24%;
+  }
+}
+
 #recent-posts::before {
   display: block;
   margin: 2px 0 20px 4px;
@@ -294,6 +309,12 @@ body {
   line-height: 1.72;
 }
 
+@media screen and (min-width: 901px) {
+  #body-wrap.post #article-container {
+    max-width: 880px;
+  }
+}
+
 #article-container p {
   margin: 0 0 1.15em;
 }
@@ -369,6 +390,15 @@ code {
 
 .MathJax {
   font-size: 1em !important;
+}
+
+/* Hide MathJax scrollbars that look like blue underlines in inline formulas. */
+#article-container mjx-container {
+  scrollbar-width: none;
+}
+
+#article-container mjx-container::-webkit-scrollbar {
+  display: none;
 }
 
 /* Pagination and floating controls */
