@@ -18,6 +18,14 @@
   --fufffh-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
   --fufffh-shadow-hover: 0 22px 54px rgba(15, 23, 42, 0.14);
   --fufffh-radius: 20px;
+  --fufffh-scroll-track-start: #f8fafc;
+  --fufffh-scroll-track-end: #e7eef7;
+  --fufffh-scroll-thumb-start: #60a5fa;
+  --fufffh-scroll-thumb-main: #2563eb;
+  --fufffh-scroll-thumb-end: #14b8a6;
+  --fufffh-scroll-thumb-hover-start: #3b82f6;
+  --fufffh-scroll-thumb-hover-main: #1d4ed8;
+  --fufffh-scroll-thumb-hover-end: #0d9488;
 }
 
 [data-theme="dark"] {
@@ -30,10 +38,99 @@
   --fufffh-line: rgba(211, 221, 241, 0.11);
   --fufffh-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
   --fufffh-shadow-hover: 0 22px 54px rgba(0, 0, 0, 0.32);
+  --fufffh-scroll-track-start: #111827;
+  --fufffh-scroll-track-end: #1e293b;
+  --fufffh-scroll-thumb-start: #7dd3fc;
+  --fufffh-scroll-thumb-main: #60a5fa;
+  --fufffh-scroll-thumb-end: #2dd4bf;
+  --fufffh-scroll-thumb-hover-start: #93c5fd;
+  --fufffh-scroll-thumb-hover-main: #3b82f6;
+  --fufffh-scroll-thumb-hover-end: #14b8a6;
 }
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: auto;
+  scrollbar-color: var(--fufffh-scroll-thumb-main) var(--fufffh-scroll-track-end);
+}
+
+/* Main page scrollbar — a slim blue/teal rail with clear interaction states. */
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  border-left: 1px solid rgba(148, 163, 184, 0.12);
+  background:
+    radial-gradient(circle at 50% 14%, rgba(37, 99, 235, 0.08), transparent 26%),
+    linear-gradient(
+      180deg,
+      var(--fufffh-scroll-track-start) 0%,
+      var(--fufffh-scroll-track-end) 100%
+    );
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.7),
+    inset -1px 0 0 rgba(148, 163, 184, 0.08);
+}
+
+html::-webkit-scrollbar-thumb {
+  min-height: 64px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 255, 255, 0.08) 34%,
+        rgba(15, 23, 42, 0.12) 100%
+      )
+      padding-box,
+    linear-gradient(
+        180deg,
+        var(--fufffh-scroll-thumb-start) 0%,
+        var(--fufffh-scroll-thumb-main) 56%,
+        var(--fufffh-scroll-thumb-end) 100%
+      )
+      padding-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 2px 8px rgba(37, 99, 235, 0.22);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.42), rgba(15, 23, 42, 0.12))
+      padding-box,
+    linear-gradient(
+        180deg,
+        var(--fufffh-scroll-thumb-hover-start) 0%,
+        var(--fufffh-scroll-thumb-hover-main) 56%,
+        var(--fufffh-scroll-thumb-hover-end) 100%
+      )
+      padding-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.36),
+    0 3px 10px rgba(37, 99, 235, 0.3);
+}
+
+html::-webkit-scrollbar-thumb:active {
+  border: 2px solid transparent;
+  background: linear-gradient(180deg, #1d4ed8 0%, #1e40af 58%, #0f766e 100%)
+    padding-box;
+  box-shadow:
+    inset 0 1px 3px rgba(15, 23, 42, 0.24),
+    0 1px 5px rgba(29, 78, 216, 0.24);
+}
+
+html::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html::-webkit-scrollbar-corner {
+  background: var(--fufffh-scroll-track-end);
 }
 
 body {
@@ -356,6 +453,19 @@ body {
 #article-container table {
   overflow: hidden;
   border-radius: 12px;
+}
+
+/* Keep wide tables swipeable on small screens without drawing a permanent bar. */
+#article-container .table-wrap {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#article-container .table-wrap::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 #article-container a:not(.headerlink) {
