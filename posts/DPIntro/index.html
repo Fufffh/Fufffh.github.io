@@ -504,12 +504,35 @@ window.pjax ? loadMathjax() : window.addEventListener('DOMContentLoaded', loadMa
   }
 })()</script></div><script defer="" src="/js/site-runtime.js"></script><script data-pjax="">(function() {
   const currentPath = window.location.pathname + window.location.search + window.location.hash;
+  const historicalOffset = 0;
   // Keep the old Busuanzi page key while its JSONP request is created, then restore the readable URL.
   window.history.replaceState(window.history.state, '', "/posts/9cc9424e/");
   const script = document.createElement('script');
   script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
   script.async = true;
-  const restorePath = () => window.history.replaceState(window.history.state, '', currentPath);
+  const applyHistoricalOffset = () => {
+    if (!historicalOffset || window.location.hostname !== '154.94.237.121') return;
+    const counter = document.getElementById('busuanzi_value_page_pv');
+    if (!counter || counter.dataset.historicalOffsetApplied === 'true') return;
+    const apply = () => {
+      if (counter.dataset.historicalOffsetApplied === 'true') return true;
+      const value = counter.textContent.trim().replace(/,/g, '');
+      if (!/^\d+$/.test(value)) return false;
+      counter.textContent = (Number(value) + historicalOffset).toLocaleString('zh-CN');
+      counter.dataset.historicalOffsetApplied = 'true';
+      return true;
+    };
+    if (apply()) return;
+    const observer = new MutationObserver(() => {
+      if (apply()) observer.disconnect();
+    });
+    observer.observe(counter, { childList: true, characterData: true, subtree: true });
+    window.setTimeout(() => observer.disconnect(), 10000);
+  };
+  const restorePath = () => {
+    window.history.replaceState(window.history.state, '', currentPath);
+    applyHistoricalOffset();
+  };
   script.onload = restorePath;
   script.onerror = restorePath;
   document.head.appendChild(script);
