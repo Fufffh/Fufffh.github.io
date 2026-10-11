@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从一个向量开始，我注意到了Transformer | Fufffh's Blog</title><meta name="author" content="Fufffh"><meta name="copyright" content="Fufffh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#EEEEEE"><meta name="description" content="更新日志2026.10.05：博客创建。 2026.10.06：完成第0、1、2章。 2026.10.07：完成4.1、4.2、4.3。 2026.10.08：完成4.4.1 0. 怎么读这篇博客阅读博客之前，请先阅读以下内容。 0.1 这套博客要回答什么问题 零基础入门人工智能要学什么基础知识？ Transformer 是什么？ 它为什么能处理语言？ 它是怎么学会预测下一个词的？ ChatGPT">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从一个向量开始，我注意到了Transformer | Fufffh's Blog</title><meta name="author" content="Fufffh"><meta name="copyright" content="Fufffh"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#EEEEEE"><meta name="description" content="更新日志2026.10.05：博客创建。 2026.10.06：完成第0、1、2章。 2026.10.07：完成4.1、4.2、4.3。 2026.10.08：完成4.4.1 2026.10.11：完成4.4.2 0. 怎么读这篇博客阅读博客之前，请先阅读以下内容。 0.1 这套博客要回答什么问题 零基础入门人工智能要学什么基础知识？ Transformer 是什么？ 它为什么能处理语言？ 它是怎">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从一个向量开始，我注意到了Transformer">
 <meta property="og:url" content="https://fufffh.github.io/posts/Transformer/">
 <meta property="og:site_name" content="Fufffh's Blog">
-<meta property="og:description" content="更新日志2026.10.05：博客创建。 2026.10.06：完成第0、1、2章。 2026.10.07：完成4.1、4.2、4.3。 2026.10.08：完成4.4.1 0. 怎么读这篇博客阅读博客之前，请先阅读以下内容。 0.1 这套博客要回答什么问题 零基础入门人工智能要学什么基础知识？ Transformer 是什么？ 它为什么能处理语言？ 它是怎么学会预测下一个词的？ ChatGPT">
+<meta property="og:description" content="更新日志2026.10.05：博客创建。 2026.10.06：完成第0、1、2章。 2026.10.07：完成4.1、4.2、4.3。 2026.10.08：完成4.4.1 2026.10.11：完成4.4.2 0. 怎么读这篇博客阅读博客之前，请先阅读以下内容。 0.1 这套博客要回答什么问题 零基础入门人工智能要学什么基础知识？ Transformer 是什么？ 它为什么能处理语言？ 它是怎">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%9E%81%E7%AE%80%E5%8F%98%E6%8D%A2%E5%99%A8%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
 <meta property="article:published_time" content="2026-10-05T15:16:34.000Z">
-<meta property="article:modified_time" content="2026-10-05T15:16:34.000Z">
+<meta property="article:modified_time" content="2026-10-08T15:16:34.000Z">
 <meta property="article:author" content="Fufffh">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="Transformer">
@@ -21,7 +21,7 @@
   "url": "https://fufffh.github.io/posts/Transformer/",
   "image": "https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%9E%81%E7%AE%80%E5%8F%98%E6%8D%A2%E5%99%A8%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E7%A4%BA%E6%84%8F%E5%9B%BE.png",
   "datePublished": "2026-10-05T15:16:34.000Z",
-  "dateModified": "2026-10-05T15:16:34.000Z",
+  "dateModified": "2026-10-08T15:16:34.000Z",
   "author": [
     {
       "@type": "Person",
@@ -209,10 +209,11 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss2.xml" title="Fufffh's Blog" type="application/rss+xml">
-</head><body><div class="bg-animation" id="web_bg" style="background-color: #EEEEEE;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar" loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/b3f69262487ef7a0f6b79bc2cf35b222.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Fufffh's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">从一个向量开始，我注意到了Transformer</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">从一个向量开始，我注意到了Transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-05T15:16:34.000Z" title="发表于 2026-10-05 23:16:34">2026-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-05T15:16:34.000Z" title="更新于 2026-10-05 23:16:34">2026-10-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="postchat_postcontent"><h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><p>2026.10.05：博客创建。</p>
+</head><body><div class="bg-animation" id="web_bg" style="background-color: #EEEEEE;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar" loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/b3f69262487ef7a0f6b79bc2cf35b222.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Fufffh's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">从一个向量开始，我注意到了Transformer</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">从一个向量开始，我注意到了Transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-05T15:16:34.000Z" title="发表于 2026-10-05 23:16:34">2026-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-08T15:16:34.000Z" title="更新于 2026-10-08 23:16:34">2026-10-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">10.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="postchat_postcontent"><h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><p>2026.10.05：博客创建。</p>
 <p>2026.10.06：完成第0、1、2章。</p>
 <p>2026.10.07：完成4.1、4.2、4.3。</p>
 <p>2026.10.08：完成4.4.1</p>
+<p>2026.10.11：完成4.4.2</p>
 <h1 id="0-怎么读这篇博客"><a href="#0-怎么读这篇博客" class="headerlink" title="0. 怎么读这篇博客"></a>0. 怎么读这篇博客</h1><p>阅读博客之前，请先阅读以下内容。</p>
 <h2 id="0-1-这套博客要回答什么问题"><a href="#0-1-这套博客要回答什么问题" class="headerlink" title="0.1 这套博客要回答什么问题"></a>0.1 这套博客要回答什么问题</h2><ul>
 <li>零基础入门人工智能要学什么基础知识？</li>
@@ -891,14 +892,14 @@
 </tbody></table>
 <p>带入损失函数得到损失为9。</p>
 <h2 id="4-4-梯度下降"><a href="#4-4-梯度下降" class="headerlink" title="4.4 梯度下降"></a>4.4 梯度下降</h2><p>我们首先给出梯度下降的定义：</p>
-<p>梯度下降（Gradient Descent），是一种一阶迭代优化算法。给定可微的损失函数 $\mathcal{L}(\theta)$，从某个初始参数 $\theta_0$ 出发，在每一步都沿损失函数在当前参数处的负梯度方向 $-\nabla_\theta \mathcal{L}(\theta_t)$ 更新参数，即：</p>
-<p>$$<br>\theta_{t+1} = \theta_t - \eta_t \nabla_\theta \mathcal{L}(\theta_t)<br>$$</p>
+<p>梯度下降（Gradient Descent），是一种一阶迭代优化算法。给定可微的损失函数 $\mathcal{L}(\boldsymbol{\theta})$，从某个初始参数 $\boldsymbol{\theta}<em>0$ 出发，在每一步都沿损失函数在当前参数处的负梯度方向 $-\nabla</em>{\boldsymbol{\theta}} \mathcal{L}(\boldsymbol{\theta}_t)$ 更新参数，即：</p>
+<p>$$<br>\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}<em>t - \eta_t \nabla</em>{\boldsymbol{\theta}} \mathcal{L}(\boldsymbol{\theta}_t)<br>$$</p>
 <p>其中，$\eta_t$ 为第 $t$ 步的学习率，用于描述参数更新的幅度。其目标是使目标函数逐步下降，并最终收敛到极小点或者稳定点。</p>
 <p>接下来我们详细介绍梯度下降涉及到的知识及其主要内容。</p>
 <h3 id="4-4-1-爬山算法"><a href="#4-4-1-爬山算法" class="headerlink" title="4.4.1 爬山算法"></a>4.4.1 爬山算法</h3><p>在正式介绍梯度下降之前，我们先介绍一个经典算法爬山算法（Hill Climbing）：是一种基于局部搜索的迭代优化算法。它从某个初始解出发，在每一步检查当前解的邻域，选择能使目标函数值更优的邻居作为下一步的解；若邻域中不存在更优解，则算法停止，并返回当前解作为结果。</p>
 <p>用更容易懂得话来讲，就是从一个初始位置 $x_0$ 开始，假设当前位于位置 $x$，每一步都查看邻域 $f(x \pm \Delta x)$ 的函数大小，并沿着使得目标函数 $f(x)$ 更优的方向移动，直到移动到某个点，在该邻域内不存在更优点为止，我们以某个二次函数为例，可见下图：</p>
 <p><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/hill-climbing.svg" alt="爬山算法过程图" loading='lazy'></p>
-<p>我们不难发现，因为我们的损失函数 $\mathcal{L}(\theta)$ 本质上也是一个关于参数 $\theta$ 函数，也可以通过爬山算法来优化我们的参数使得损失达到最小。但实际过程中，我们却没有使用这种方法，原因是什么呢？</p>
+<p>我们不难发现，因为我们的损失函数 $\mathcal{L}(\boldsymbol{\theta})$ 本质上也是一个关于参数 $\boldsymbol{\theta}$ 函数，也可以通过爬山算法来优化我们的参数使得损失达到最小。但实际过程中，我们却没有使用这种方法，原因是什么呢？</p>
 <ul>
 <li>高维下计算量巨大</li>
 </ul>
@@ -910,7 +911,7 @@
 <p>这里我们首先讲一下参数耦合，参数耦合是是数学建模、机器学习、控制理论以及物理学中常见的一个概念。简单来说，它指的是系统或模型中的多个参数之间存在相互依赖、相互影响的关系，而不是彼此完全独立的。如果一个参数发生变化，会导致另一个（或多个）参数也随之变化，或者一个参数的变化效果取决于另一个参数的值，我们就说这些参数是“耦合”的。</p>
 <p>爬山算法通常只沿单个坐标轴或简单邻域试探。但深度学习参数高度耦合，真正下降的方向往往是多个参数联合变化的方向。所以爬山算法常常陷入局部最优解。</p>
 <p>为了更好的讲解什么是参数耦合，我们举一个具体的例子：</p>
-<p>$$<br>f(x, y) = x^2 + y^2 + 10xy \<br>\Delta x = \Delta y = \epsilon \<br>x_0 = y_0 = 0<br>$$</p>
+<p>$$<br>f(x, y) = x^2 + y^2 + 10xy \\<br>\Delta x = \Delta y = \epsilon \\<br>x_0 = y_0 = 0<br>$$</p>
 <p>如果沿着 $x$ 轴走，那么 $f(\epsilon, 0) = \epsilon^2$；沿着 $y$ 轴走，那么 $f(0, \epsilon) = \epsilon^2$。</p>
 <p>会发现目标函数都上升，我们需要让函数值最小，所以算法认为这就是最优，停止并返回。</p>
 <p>但实际上我们如果两个方向同时走，比如$(\epsilon, -\epsilon)$，那么 $f(\epsilon, -\epsilon) = -8\epsilon^2 &lt; 0$，可以进一步降低。</p>
@@ -920,10 +921,225 @@
 <li>缺乏逃逸机制</li>
 </ul>
 <p>爬山算法是贪心策略，只要邻域里没有更优点，它就停。它没有随机噪声、动量、重启等机制，很容易卡在局部最优或鞍点。</p>
-<p>考虑一维函数 $f(x) = x^2 + 0.5\sin(5x)$，它有很多局部极小值。爬山算法从某个点出发，会很快滑进最近的一个小坑，然后发现左右两边都比当前高，于是停住。但这个坑很可能不是全局最优。</p>
+<p>考虑一维函数 $f(x) = x^2 + \sin(5x)$，它有很多局部极小值。爬山算法从某个点出发，会很快滑进最近的一个小坑，然后发现左右两边都比当前高，于是停住。但这个坑很可能不是全局最优。</p>
 <p><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/hill-climbing-local-minima.svg" alt="爬山算法示意图" loading='lazy'></p>
-<p>总而言之，爬山算法因为其存在的问题，并没有成文主流的参数优化方式，但这种思想和机制是极为宝贵的，我们也在讲后面引出同一数学直觉的另一算法——梯度下降算法，这也是机器学习、人工智能领域的重要篇章。虽然爬山算法因为其弊端没有广泛应用到人工智能领域的参数更新中，但是其带来的数学直觉和机制提供了巨大的作用，在它的基础上也发展出来了一系列启发式算法，如模拟退火、随机重启、禁忌搜索、遗传算法、粒子群优化、蚁群算法和差分进化等等，感兴趣的可以自行研究。</p>
-<h3 id="4-4-2-梯度下降算法"><a href="#4-4-2-梯度下降算法" class="headerlink" title="4.4.2 梯度下降算法"></a>4.4.2 梯度下降算法</h3></div></article><div class="post-copyright"><div class="post-copyright__header"><span class="post-copyright__eyebrow">文章信息</span><span class="post-copyright__mark">ARTICLE INFO</span></div><div class="post-copyright__grid"><div class="post-copyright__item post-copyright__author"><span class="post-copyright-meta">作者</span><span class="post-copyright-info"><a href="https://Fufffh.github.io">Fufffh</a></span></div><div class="post-copyright__item post-copyright__date"><span class="post-copyright-meta">发布时间</span><time class="post-copyright-info" datetime="2026-10-05T15:16:34.000Z" title="2026-10-05 23:16:34">2026-10-05</time></div><div class="post-copyright__item post-copyright__title"><span class="post-copyright-meta">文章题目</span><span class="post-copyright-info">从一个向量开始，我注意到了Transformer</span></div><div class="post-copyright__item post-copyright__category"><span class="post-copyright-meta">文章板块</span><span class="post-copyright-info"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div></div><div class="post-copyright__notice"><div class="post-copyright__licenses" role="group" aria-label="CC BY-NC-SA 4.0"><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="Creative Commons · CC BY-NC-SA 4.0" aria-label="Creative Commons · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="Attribution · CC BY-NC-SA 4.0" aria-label="Attribution · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-by" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="NonCommercial · CC BY-NC-SA 4.0" aria-label="NonCommercial · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-nc" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="ShareAlike · CC BY-NC-SA 4.0" aria-label="ShareAlike · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-sa" aria-hidden="true"></i></a></div><div class="post-copyright__source"><span class="post-copyright__source-label">转载请注明来源</span><a class="post-copyright__source-link" href="https://Fufffh.github.io" target="_blank" rel="noopener noreferrer">Fufffh's Blog<span class="post-copyright__external" aria-hidden="true">↗</span></a></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a></div><div class="post-share"><div class="social-share" data-image="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%9E%81%E7%AE%80%E5%8F%98%E6%8D%A2%E5%99%A8%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sites="qq,wechat"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/DragonDance24A/" title="数模精讲·国赛24A（板凳龙闹元宵）"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/450dbab8b0b56120c3c6a5b2c9c7c459.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数模精讲·国赛24A（板凳龙闹元宵）</div></div><div class="info-2"><div class="info-item-1">敬请期待 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/ModularArithmetic/" title="模意义下的数和运算"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%8E%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-19</div><div class="info-item-2">模意义下的数和运算</div></div><div class="info-2"><div class="info-item-1">取模看起来只是一个很普通的运算，但真正写进代码以后，负数、乘法溢出和模意义下的除法都很容易出错。特别是看到分式时，不能直接把普通除法搬进模运算，而是要先判断分母有没有逆元。 这篇文章从模运算与同余开始，接着介绍扩展欧几里得、线性同余方程、乘法逆元和欧拉定理，最后通过七道例题把这些内容连起来。 模运算与同余取模的定义对于整数$a$和正整数$m$，一定存在...</div></div></div></a><a class="pagination-related" href="/posts/NumberTheory/" title="基础数论入门"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E5%9F%BA%E7%A1%80%E6%95%B0%E8%AE%BA.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-18</div><div class="info-item-2">基础数论入门</div></div><div class="info-2"><div class="info-item-1">这一篇先把这些最常用的工具整理清楚：从素数与筛法开始，接着介绍质因数分解、约数、GCD 与 LCM以及快速幂。扩展欧几里得、乘法逆元和欧拉定理放在下一篇继续讨论。 素数、筛法与质因数分解素数与试除法大于$1$的整数$p$，如果正约数只有$1$和$p$本身，就称$p$为素数；否则称为合数。形式化地说： $$p&gt;1,\qquad d\mid p\Lo...</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-text">更新日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E6%80%8E%E4%B9%88%E8%AF%BB%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2"><span class="toc-text">0. 怎么读这篇博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-1-%E8%BF%99%E5%A5%97%E5%8D%9A%E5%AE%A2%E8%A6%81%E5%9B%9E%E7%AD%94%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-text">0.1 这套博客要回答什么问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-2-%E8%AF%BB%E8%80%85%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88%E5%9F%BA%E7%A1%80"><span class="toc-text">0.2 读者需要什么基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-3-%E8%AF%BB%E5%89%8D%E9%A1%BB%E7%9F%A5"><span class="toc-text">0.3 读前须知</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86%E6%96%87%E5%AD%97"><span class="toc-text">1. 计算机怎样处理文字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%AD%97%E7%AC%A6%E3%80%81%E7%BC%96%E7%A0%81%E4%B8%8E%E6%95%B0%E5%AD%97"><span class="toc-text">1.1 字符、编码与数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Token"><span class="toc-text">1.2 Token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Token-ID"><span class="toc-text">1.3 Token ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E7%89%B9%E6%AE%8A-Token-%E4%B8%8E%E8%AF%8D%E8%A1%A8"><span class="toc-text">1.4 特殊 Token 与词表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%85%AC%E5%BC%8F%E4%B8%8E%E7%AC%A6%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="toc-text">2. 公式与符号说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A0%87%E9%87%8F%E3%80%81%E5%90%91%E9%87%8F%E5%8F%8A%E7%9F%A9%E9%98%B5"><span class="toc-text">2.1 标量、向量及矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%B8%8A%E6%A0%87%E3%80%81%E4%B8%8B%E6%A0%87%E4%B8%8E%E7%B4%A2%E5%BC%95"><span class="toc-text">2.2 上标、下标与索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%95%B0%E6%8D%AE%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E9%A2%84%E6%B5%8B%E3%80%81%E5%8F%82%E6%95%B0"><span class="toc-text">2.3 数据、标签、预测、参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%BD%A2%E7%8A%B6%E3%80%81%E7%BB%B4%E5%BA%A6%E3%80%81%E9%9B%86%E5%90%88"><span class="toc-text">2.4 形状、维度、集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%B8%B8%E8%A7%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">2.5 常见运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E6%A6%82%E7%8E%87%E3%80%81%E6%9D%A1%E4%BB%B6%E3%80%81%E6%9C%9F%E6%9C%9B"><span class="toc-text">2.6 概率、条件、期望</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E6%8D%9F%E5%A4%B1%E3%80%81%E6%A2%AF%E5%BA%A6%E3%80%81%E5%8F%82%E6%95%B0%E6%9B%B4%E6%96%B0"><span class="toc-text">2.7 损失、梯度、参数更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-text">3. 数学基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc-text">4. 机器学习基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%8E%E4%BE%8B%E5%AD%90%E4%B8%AD%E5%AF%BB%E6%89%BE%E8%A7%84%E5%BE%8B"><span class="toc-text">4.1 从例子中寻找规律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%8F%82%E6%95%B0%E3%80%81%E9%A2%84%E6%B5%8B%E4%B8%8E%E8%AF%AF%E5%B7%AE"><span class="toc-text">4.2 参数、预测与误差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-text">4.3 损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-text">4.4 梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-1-%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95"><span class="toc-text">4.4.1 爬山算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95"><span class="toc-text">4.4.2 梯度下降算法</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-flex"><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">探索</div><div class="footer-flex-content"><a href="/archives/" target="_blank" title="文章归档">文章归档</a><a href="/tags/" target="_blank" title="主题标签">主题标签</a></div></div></div><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">认识我</div><div class="footer-flex-content"><a href="/about/" target="_blank" title="关于本站">关于本站</a><a href="/link/" target="_blank" title="友情链接">友情链接</a></div></div></div><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">常用链接</div><div class="footer-flex-content"><a href="https://github.com/Fufffh" target="_blank" title="GitHub">GitHub</a><a href="/rss2.xml" target="_blank" title="RSS">RSS</a></div></div></div></div><div class="footer-other"><div class="footer-copyright"></div><div class="footer_custom_text"><span class="footer-owner">By Fufffh</span>
+<p>总而言之，爬山算法因为其存在的问题，并没有成为主流的参数优化方式，但这种思想和机制是极为宝贵的，我们也在讲后面引出同一数学直觉的另一算法——梯度下降算法，这也是机器学习、人工智能领域的重要篇章。虽然爬山算法因为其弊端没有广泛应用到人工智能领域的参数更新中，但是其带来的数学直觉和机制提供了巨大的作用，在它的基础上也发展出来了一系列启发式算法，如模拟退火、随机重启、禁忌搜索、遗传算法、粒子群优化、蚁群算法和差分进化等等，感兴趣的可以自行研究。</p>
+<h3 id="4-4-2-梯度下降算法"><a href="#4-4-2-梯度下降算法" class="headerlink" title="4.4.2 梯度下降算法"></a>4.4.2 梯度下降算法</h3><p>经过了前面很多的铺垫，我们也是正式进入梯度下降算法了。前面的小节中我们已经知道，损失函数可以把模型预测结果“好不好”量化成一个具体的数作为评判指标，模型训练这一阶段的目的就是不断调整模型的参数，逐步降低这个损失。</p>
+<p>假设目前模型的<strong>可学习参数</strong>记作 $\boldsymbol{\theta}$，记住一定是可学习的参数，而非固定参数。当参数改变时，模型预测就会跟着改变，损失也会随之改变，梯度下降就是根据损失对参数的变化趋势，反复更新参数的一种优化方式。</p>
+<p>形象地，给定第 $t$ 步参数为 $\boldsymbol{\theta}_t$，则更新规则如下：</p>
+<p>$$<br>\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}<em>t-\eta_t\nabla</em>{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_t)<br>$$</p>
+<p>不过这样理解可能不够明显，其实 $\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_t)$ 就是损失函数关于所有可学习参数的偏导组成的。</p>
+<p>如果只有一个参数，那么显然梯度就是该参数在 $t$ 时的导数，当参数不只一个时，扩展为梯度，由所有参数的偏导数组成：</p>
+<p>$$<br>\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta})=<br>\left(<br>\frac{\partial\mathcal{L}}{\partial\theta_1},<br>\frac{\partial\mathcal{L}}{\partial\theta_2},<br>\ldots,<br>\frac{\partial\mathcal{L}}{\partial\theta_d}<br>\right)^\top<br>$$</p>
+<p>梯度同时告诉我们每个参数对损失的影响方向和强弱，对于足够小的一步更新，沿着<strong>负梯度方向</strong>移动通常会使得损失下降。我们在微积分中学到过微分近似（线性近似）公式，其关于一阶导数的展开形式如下：</p>
+<p>$$<br>f(x + \Delta x) \approx f(x) + f’(x)\Delta x<br>$$</p>
+<p>扩展为用梯度表示，则可以得到下面式：</p>
+<p>$$<br>f(\mathbf{x}+\Delta\mathbf{x})\approx f(\mathbf{x})+\nabla f(\mathbf{x})^T\Delta\mathbf{x}<br>$$</p>
+<p>我们将梯度下降里的参数和变量带入进去，便可以得到：</p>
+<p>$$<br>\mathcal{L}(\boldsymbol{\theta}-\eta\nabla\mathcal{L}(\boldsymbol{\theta}))<br>\approx<br>\mathcal{L}(\boldsymbol{\theta})-\eta|\nabla\mathcal{L}(\boldsymbol{\theta})|_2^2<br>$$</p>
+<p>所以当 $\eta$ 足够小的时候，可以认为是线性近似，即损失降低。沿着负梯度方向移动，并且学习率 $\eta$ 为大于零的正数，所以是减去梯度而非加上，这里要做好区分。不过只有理论还是太难懂了，我们结合具体的例子进行讲解。</p>
+<p>假设目前我们有五个点是这样的：(1, 2)，(2, 5)，(3, 6)，(4, 8)，(5, 9)，我们用 $y = wx$ 去拟合，通过不断改变 $w$ 我们可以得到不同的损失值，大家可以拖动下面的滚动条直观的看一下拟合曲线关于参数的变化以及参数变化带来的损失变化。</p>
+
+<style>
+  .regression-demo {
+    display: block;
+    width: 100%;
+    height: 560px;
+    border: 0;
+  }
+  @media (max-width: 620px) {
+    .regression-demo {
+      height: 820px;
+    }
+  }
+</style>
+
+<iframe class="regression-demo" src="/interactive/linear-regression-loss.html" title="线性回归与损失函数" loading="lazy">
+</iframe>
+
+
+<p>插句题外话，这里我们用的损失是均方误差，为什么大多数情况我们不用绝对值误差呢，从这里也可以看出来，如果用的是绝对值误差，那么它的变化不是平滑的，就导致有点不可微，进而导致梯度无法定义，这也是很少使用绝对值误差的一个原因。</p>
+<p>作为人类，我们当然可以肉眼的找出这个最优点在哪，但是机器不知道，它所能做的就是从一个点开始不断的尝试，梯度为我们确定了尝试的方向，而学习率就是在该方向上尝试的程度。不过学习率选取不当也可能造成一系列问题。比如学习率过大会导致可能跳过最优解，然后在最优解两侧不断震荡徘徊或者干脆彻底错过；过小则导致收敛慢、时间长。所以学习率的选取是模型能否成功训练的重要依据。为了解决学习率选取不当的问题，我们常见的方法是学习率衰减法和自适应学习率、学习率预热等，具体将在下一小章节介绍。</p>
+<p>回到主线，我们继续讲解。大模型的参数肯定不止一个，它往往是很多的，我们也要对其进行升维。以二维为例，假设我们的预测方程变成了 $y = wx + b$，增加一个 $b$ 轴后，我们的示意图也变为如下图：</p>
+
+<style>
+  .regression-surface-demo {
+    display: block;
+    width: 100%;
+    height: 660px;
+    border: 0;
+  }
+  @media (max-width: 620px) {
+    .regression-surface-demo {
+      height: 960px;
+    }
+  }
+</style>
+
+<iframe class="regression-surface-demo" src="/interactive/linear-regression-surface.html" title="线性回归与二维参数损失曲面" scrolling="no" loading="lazy">
+</iframe>
+
+
+<p>我们将两个参数组成参数向量：</p>
+
+$$
+\boldsymbol{\theta}_t=
+\begin{bmatrix}
+w_t\\
+b_t
+\end{bmatrix}
+$$
+
+
+<p>在第 $t$ 步，损失函数对参数的梯度为：</p>
+
+$$
+\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_t)=
+\begin{bmatrix}
+\left.\dfrac{\partial\mathcal{L}}{\partial w}\right|_{(w_t,b_t)}\\[6pt]
+\left.\dfrac{\partial\mathcal{L}}{\partial b}\right|_{(w_t,b_t)}
+\end{bmatrix}
+$$
+
+
+<p>这里的两个偏导数都在同一组当前参数 $(w_t,b_t)$ 处计算。随后，两个参数同时更新：</p>
+
+$$
+\boldsymbol{\theta}_{t+1}=
+\boldsymbol{\theta}_t-\eta\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_t)
+$$
+
+
+<p>展开即为：</p>
+
+$$
+\begin{bmatrix}
+w_{t+1}\\
+b_{t+1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+w_t\\
+b_t
+\end{bmatrix}
+-\eta
+\begin{bmatrix}
+\left.\dfrac{\partial\mathcal{L}}{\partial w}\right|_{(w_t,b_t)}\\[6pt]
+\left.\dfrac{\partial\mathcal{L}}{\partial b}\right|_{(w_t,b_t)}
+\end{bmatrix}
+$$
+
+
+<p>还是以给出的五个点为例，我们假设初始 $\boldsymbol{\theta}=\begin{bmatrix}0 &amp; 0\end{bmatrix}^T$，学习率 $\eta = 0.005$，我们接下来展示更新过程：</p>
+
+$$
+\begin{array}{|c|c|c|c|c|}
+\hline
+\rule[-2.25ex]{0pt}{5.5ex}
+\quad t\quad
+&amp; \quad\boldsymbol{\theta}_t=[w_t,b_t]^\top\quad
+&amp; \quad\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_t)\quad
+&amp; \quad\boldsymbol{\theta}_{t+1}\quad
+&amp; \quad\mathcal{L}(\boldsymbol{\theta}_t)\quad
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+0
+&amp; [0.000000,\ 0.000000]^\top
+&amp; [-42.800000,\ -12.000000]^\top
+&amp; [0.214000,\ 0.060000]^\top
+&amp; 42.000000
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+1
+&amp; [0.214000,\ 0.060000]^\top
+&amp; [-37.732000,\ -10.596000]^\top
+&amp; [0.402660,\ 0.112980]^\top
+&amp; 32.705196
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+3
+&amp; [0.568978,\ 0.159770]^\top
+&amp; [-29.323862,\ -8.266591]^\top
+&amp; [0.715597,\ 0.201103]^\top
+&amp; 19.862554
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+10
+&amp; [1.294574,\ 0.365776]^\top
+&amp; [-12.124711,\ -3.501003]^\top
+&amp; [1.355198,\ 0.383281]^\top
+&amp; 3.612995
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+30
+&amp; [1.763504,\ 0.509700]^\top
+&amp; [-0.944706,\ -0.399574]^\top
+&amp; [1.768228,\ 0.511698]^\top
+&amp; 0.267980
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+100
+&amp; [1.793203,\ 0.563483]^\top
+&amp; [0.031368,\ -0.113815]^\top
+&amp; [1.793046,\ 0.564052]^\top
+&amp; 0.240612
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+500
+&amp; [1.747374,\ 0.728963]^\top
+&amp; [0.016017,\ -0.057827]^\top
+&amp; [1.747294,\ 0.729252]^\top
+&amp; 0.225325
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+1000
+&amp; [1.720331,\ 0.826600]^\top
+&amp; [0.006874,\ -0.024816]^\top
+&amp; [1.720296,\ 0.826724]^\top
+&amp; 0.220981
+\\ \hline
+\rule[-1.75ex]{0pt}{4.5ex}
+10000
+&amp; [1.700000,\ 0.900000]^\top
+&amp; [1.675\times10^{-9},\ -6.048\times10^{-9}]^\top
+&amp; [1.700000,\ 0.900000]^\top
+&amp; 0.220000
+\\ \hline
+\end{array}
+$$
+
+
+<p>可视化交互训练过程大家可以操作下面这部分进行进一步理解：</p>
+
+<iframe src="/interactive/gradient-descent-steps.html" title="梯度下降更新过程" style="display:block;width:100%;height:640px;border:0;" scrolling="no" loading="lazy">
+</iframe>
+
+
+<p>因为训练集的样本可能有很多，每个样本都能产生对应的损失和梯度，所以计算梯度时我们也有以下不同的方式：</p>
+<ul>
+<li><p><strong>全量梯度下降（Batch Gradient Descent，BGD）</strong></p>
+<p>每次更新参数时，使用整个训练集计算梯度，求平均后更新一次参数。</p>
+<p>例如，训练集有五个样本，就在同一组当前参数下计算这五个样本的梯度，取平均后更新。我们前面使用五个点的例子就是这种方法。</p>
+<p>梯度能够准确反映整个训练集的当前损失变化方向，但当数据量很大时，每次更新的计算成本也比较高。</p>
+<p>我们前文展示的更新过程采用的就是这种方法。</p>
+</li>
+<li><p><strong>随机梯度下降（Stochastic Gradient Descent，SGD）</strong></p>
+<p>每次更新参数时，只使用一个样本计算梯度，然后立即更新参数。</p>
+<p>例如，将五个样本随机打乱，使用第一个样本计算梯度并更新参数，再用更新后的参数处理第二个样本，依次进行。</p>
+<p>每次更新的计算成本较低，但单个样本的梯度可能与整个训练集的梯度差别较大，因此下降过程通常会有波动，损失也不一定每一步都下降。</p>
+<p>具体过程可见下图：</p>
+</li>
+</ul>
+<p><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/stochastic-gradient-descent-fifty.gif" alt="随机梯度下降示意图" loading='lazy'></p>
+<ul>
+<li><p><strong>小批量梯度下降（Mini-batch Gradient Descent，MBGD）</strong></p>
+<p>每次更新参数时，使用一小批样本计算梯度，求平均后更新一次参数。</p>
+<p>例如，将五个样本随机打乱，分成大小为 2、2、1 的三个小批次，每处理完一个小批次就更新一次参数。</p>
+<p>它兼顾了计算效率和梯度的稳定性，也便于利用硬件进行并行计算，是深度学习训练中最常用的方式。实际讨论中，“SGD”有时也泛指采用小批量更新的方法，需要结合上下文区分。</p>
+</li>
+</ul>
+<p><img src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/mini-batch-gradient-descent-fifty.gif" alt="小批量梯度下降示意图" loading='lazy'></p>
+<h3 id="4-4-3-学习率与优化器"><a href="#4-4-3-学习率与优化器" class="headerlink" title="4.4.3 学习率与优化器"></a>4.4.3 学习率与优化器</h3><h3 id="4-4-4-Euler方程"><a href="#4-4-4-Euler方程" class="headerlink" title="4.4.4 * Euler方程"></a>4.4.4 * Euler方程</h3></div></article><div class="post-copyright"><div class="post-copyright__header"><span class="post-copyright__eyebrow">文章信息</span><span class="post-copyright__mark">ARTICLE INFO</span></div><div class="post-copyright__grid"><div class="post-copyright__item post-copyright__author"><span class="post-copyright-meta">作者</span><span class="post-copyright-info"><a href="https://Fufffh.github.io">Fufffh</a></span></div><div class="post-copyright__item post-copyright__date"><span class="post-copyright-meta">发布时间</span><time class="post-copyright-info" datetime="2026-10-05T15:16:34.000Z" title="2026-10-05 23:16:34">2026-10-05</time></div><div class="post-copyright__item post-copyright__title"><span class="post-copyright-meta">文章题目</span><span class="post-copyright-info">从一个向量开始，我注意到了Transformer</span></div><div class="post-copyright__item post-copyright__category"><span class="post-copyright-meta">文章板块</span><span class="post-copyright-info"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div></div><div class="post-copyright__notice"><div class="post-copyright__licenses" role="group" aria-label="CC BY-NC-SA 4.0"><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="Creative Commons · CC BY-NC-SA 4.0" aria-label="Creative Commons · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="Attribution · CC BY-NC-SA 4.0" aria-label="Attribution · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-by" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="NonCommercial · CC BY-NC-SA 4.0" aria-label="NonCommercial · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-nc" aria-hidden="true"></i></a><a class="post-copyright__license-icon" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="ShareAlike · CC BY-NC-SA 4.0" aria-label="ShareAlike · CC BY-NC-SA 4.0"><i class="fab fa-creative-commons-sa" aria-hidden="true"></i></a></div><div class="post-copyright__source"><span class="post-copyright__source-label">转载请注明来源</span><a class="post-copyright__source-link" href="https://Fufffh.github.io" target="_blank" rel="noopener noreferrer">Fufffh's Blog<span class="post-copyright__external" aria-hidden="true">↗</span></a></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/Transformer/">Transformer</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a></div><div class="post-share"><div class="social-share" data-image="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%9E%81%E7%AE%80%E5%8F%98%E6%8D%A2%E5%99%A8%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sites="qq,wechat"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/DragonDance24A/" title="数模精讲·国赛24A（板凳龙闹元宵）"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/450dbab8b0b56120c3c6a5b2c9c7c459.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数模精讲·国赛24A（板凳龙闹元宵）</div></div><div class="info-2"><div class="info-item-1">敬请期待 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/ModularArithmetic/" title="模意义下的数和运算"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%8E%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-19</div><div class="info-item-2">模意义下的数和运算</div></div><div class="info-2"><div class="info-item-1">取模看起来只是一个很普通的运算，但真正写进代码以后，负数、乘法溢出和模意义下的除法都很容易出错。特别是看到分式时，不能直接把普通除法搬进模运算，而是要先判断分母有没有逆元。 这篇文章从模运算与同余开始，接着介绍扩展欧几里得、线性同余方程、乘法逆元和欧拉定理，最后通过七道例题把这些内容连起来。 模运算与同余取模的定义对于整数$a$和正整数$m$，一定存在...</div></div></div></a><a class="pagination-related" href="/posts/NumberTheory/" title="基础数论入门"><img class="cover" src="https://blog-1406428002.cos.ap-guangzhou.myqcloud.com/%E5%9F%BA%E7%A1%80%E6%95%B0%E8%AE%BA.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-18</div><div class="info-item-2">基础数论入门</div></div><div class="info-2"><div class="info-item-1">这一篇先把这些最常用的工具整理清楚：从素数与筛法开始，接着介绍质因数分解、约数、GCD 与 LCM以及快速幂。扩展欧几里得、乘法逆元和欧拉定理放在下一篇继续讨论。 素数、筛法与质因数分解素数与试除法大于$1$的整数$p$，如果正约数只有$1$和$p$本身，就称$p$为素数；否则称为合数。形式化地说： $$p&gt;1,\qquad d\mid p\Lo...</div></div></div></a></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-text">更新日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E6%80%8E%E4%B9%88%E8%AF%BB%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2"><span class="toc-text">0. 怎么读这篇博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-1-%E8%BF%99%E5%A5%97%E5%8D%9A%E5%AE%A2%E8%A6%81%E5%9B%9E%E7%AD%94%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-text">0.1 这套博客要回答什么问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-2-%E8%AF%BB%E8%80%85%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88%E5%9F%BA%E7%A1%80"><span class="toc-text">0.2 读者需要什么基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-3-%E8%AF%BB%E5%89%8D%E9%A1%BB%E7%9F%A5"><span class="toc-text">0.3 读前须知</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86%E6%96%87%E5%AD%97"><span class="toc-text">1. 计算机怎样处理文字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%AD%97%E7%AC%A6%E3%80%81%E7%BC%96%E7%A0%81%E4%B8%8E%E6%95%B0%E5%AD%97"><span class="toc-text">1.1 字符、编码与数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Token"><span class="toc-text">1.2 Token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Token-ID"><span class="toc-text">1.3 Token ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E7%89%B9%E6%AE%8A-Token-%E4%B8%8E%E8%AF%8D%E8%A1%A8"><span class="toc-text">1.4 特殊 Token 与词表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%85%AC%E5%BC%8F%E4%B8%8E%E7%AC%A6%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="toc-text">2. 公式与符号说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A0%87%E9%87%8F%E3%80%81%E5%90%91%E9%87%8F%E5%8F%8A%E7%9F%A9%E9%98%B5"><span class="toc-text">2.1 标量、向量及矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%B8%8A%E6%A0%87%E3%80%81%E4%B8%8B%E6%A0%87%E4%B8%8E%E7%B4%A2%E5%BC%95"><span class="toc-text">2.2 上标、下标与索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%95%B0%E6%8D%AE%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E9%A2%84%E6%B5%8B%E3%80%81%E5%8F%82%E6%95%B0"><span class="toc-text">2.3 数据、标签、预测、参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%BD%A2%E7%8A%B6%E3%80%81%E7%BB%B4%E5%BA%A6%E3%80%81%E9%9B%86%E5%90%88"><span class="toc-text">2.4 形状、维度、集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%B8%B8%E8%A7%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">2.5 常见运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E6%A6%82%E7%8E%87%E3%80%81%E6%9D%A1%E4%BB%B6%E3%80%81%E6%9C%9F%E6%9C%9B"><span class="toc-text">2.6 概率、条件、期望</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E6%8D%9F%E5%A4%B1%E3%80%81%E6%A2%AF%E5%BA%A6%E3%80%81%E5%8F%82%E6%95%B0%E6%9B%B4%E6%96%B0"><span class="toc-text">2.7 损失、梯度、参数更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-text">3. 数学基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc-text">4. 机器学习基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%8E%E4%BE%8B%E5%AD%90%E4%B8%AD%E5%AF%BB%E6%89%BE%E8%A7%84%E5%BE%8B"><span class="toc-text">4.1 从例子中寻找规律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%8F%82%E6%95%B0%E3%80%81%E9%A2%84%E6%B5%8B%E4%B8%8E%E8%AF%AF%E5%B7%AE"><span class="toc-text">4.2 参数、预测与误差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-text">4.3 损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-text">4.4 梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-1-%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95"><span class="toc-text">4.4.1 爬山算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95"><span class="toc-text">4.4.2 梯度下降算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E4%B8%8E%E4%BC%98%E5%8C%96%E5%99%A8"><span class="toc-text">4.4.3 学习率与优化器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-4-Euler%E6%96%B9%E7%A8%8B"><span class="toc-text">4.4.4 * Euler方程</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-flex"><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">探索</div><div class="footer-flex-content"><a href="/archives/" target="_blank" title="文章归档">文章归档</a><a href="/tags/" target="_blank" title="主题标签">主题标签</a></div></div></div><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">认识我</div><div class="footer-flex-content"><a href="/about/" target="_blank" title="关于本站">关于本站</a><a href="/link/" target="_blank" title="友情链接">友情链接</a></div></div></div><div class="footer-flex-items"><div class="footer-flex-item"><div class="footer-flex-title">常用链接</div><div class="footer-flex-content"><a href="https://github.com/Fufffh" target="_blank" title="GitHub">GitHub</a><a href="/rss2.xml" target="_blank" title="RSS">RSS</a></div></div></div></div><div class="footer-other"><div class="footer-copyright"></div><div class="footer_custom_text"><span class="footer-owner">By Fufffh</span>
 <span class="site-runtime" id="site-runtime" data-start="2024-10-19T00:00:00+08:00">
   <span>本站已安全运行</span>
   <span class="site-runtime__value" data-runtime="days">0</span><span>天</span>
