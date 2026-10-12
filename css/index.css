@@ -1687,7 +1687,7 @@ canvas:not(#ribbon-canvas),
   --card-hover-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.09);
   --pseudo-hover: #14b8a6;
   --headline-presudo: #a0a0a0;
-  --scrollbar-color: #2563eb;
+  --scrollbar-color: #59636a;
   --default-bg-color: #2563eb;
   --zoom-bg: #fff;
   --mark-bg: rgba(0,0,0,0.3);
@@ -4023,7 +4023,7 @@ figure.highlight pre .javascript .function {
   color: #2563eb;
 }
 #aside-content #card-toc .toc-content .toc-link.active {
-  background: #2563eb;
+  background: #59636a;
   color: #fff;
 }
 #aside-content .sticky_layout:only-child > :first-child {
