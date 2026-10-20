@@ -1,0 +1,51 @@
+name: 友链申请
+description: 为个人站点申请交换友链
+title: "[友链申请] 站点名称"
+body:
+  - type: markdown
+    attributes:
+      value: "欢迎交换友链。请先添加 https://fufffh.github.io/ 。资料公开，请勿填写密码、私人联系方式或其他隐私。申请由站长手动审核，不会自动添加。"
+  - type: input
+    id: site-name
+    attributes:
+      label: 站点名称
+    validations:
+      required: true
+  - type: input
+    id: site-url
+    attributes:
+      label: 站点地址
+      placeholder: https://example.com/
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: 一句话简介
+      description: 建议不超过 40 字。
+    validations:
+      required: true
+  - type: input
+    id: avatar
+    attributes:
+      label: 头像地址
+      description: 稳定、可公开访问的图片直链。
+    validations:
+      required: true
+  - type: input
+    id: link-page
+    attributes:
+      label: 已添加本站链接的页面
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 补充说明
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: 申请确认
+      options:
+        - label: 我已阅读申请说明，并在站点添加了本站链接。
+          required: true

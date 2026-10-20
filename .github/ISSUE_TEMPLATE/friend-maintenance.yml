@@ -1,0 +1,35 @@
+name: 友链修改或移除
+description: 申请更新现有友链资料，或移除友链
+title: "[友链维护] 站点名称"
+body:
+  - type: markdown
+    attributes:
+      value: "资料公开。请勿提交密码或其他隐私；站长会人工核对站点归属，不会自动修改或删除。"
+  - type: input
+    id: site
+    attributes:
+      label: 现有站点名称与地址
+    validations:
+      required: true
+  - type: dropdown
+    id: request
+    attributes:
+      label: 申请类型
+      options:
+        - 修改资料
+        - 移除友链
+    validations:
+      required: true
+  - type: textarea
+    id: changes
+    attributes:
+      label: 需要修改的内容或移除原因
+    validations:
+      required: true
+  - type: textarea
+    id: ownership
+    attributes:
+      label: 站点归属说明
+      description: 提供可在原站点核对的信息，不要提交账号或密码。
+    validations:
+      required: true

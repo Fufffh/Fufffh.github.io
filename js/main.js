@@ -11,12 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (init) {
       const blogInfoWidth = Array.from(document.querySelector('#blog-info > a').children).reduce((w, i) => w + i.offsetWidth, 0)
-      const menusWidth = Array.from(document.getElementById('menus').children).reduce((w, i) => w + i.offsetWidth, 0)
-      headerContentWidth = blogInfoWidth + menusWidth
+      const menus = document.getElementById('menus')
+      const menusWidth = Array.from(menus.children).reduce((w, i) => w + i.offsetWidth, 0)
+      const menuGap = parseFloat(getComputedStyle(menus).columnGap) || 0
+      headerContentWidth = blogInfoWidth + menusWidth + menuGap * (menus.children.length - 1)
       $nav = document.getElementById('nav')
     }
 
-    hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.offsetWidth - 120
+    const navStyle = getComputedStyle($nav)
+    const navSpacing = (parseFloat(navStyle.paddingLeft) || 0) +
+      (parseFloat(navStyle.paddingRight) || 0) + (parseFloat(navStyle.columnGap) || 0)
+    hideMenuIndex = window.innerWidth <= 768 || headerContentWidth > $nav.clientWidth - navSpacing
 
     requestAnimationFrame(() => {
       $nav.classList.toggle('hide-menu', hideMenuIndex)
