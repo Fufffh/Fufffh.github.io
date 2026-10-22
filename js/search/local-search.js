@@ -15,20 +15,23 @@ class LocalSearch {
     this.top_n_per_article = top_n_per_article
     this.isfetched = false
     this.datas = null
-    this._unescapeDiv = unescape ? document.createElement('div') : null
-    this._processedKeywords = null
+    this.fetchPromise = null
+    this.loadError = null
   }
 
   _processKeywords (keywords) {
-    if (this._processedKeywords) return this._processedKeywords
-    this._processedKeywords = keywords.map(word => {
-      if (this.unescape) {
-        this._unescapeDiv.innerText = word
-        return this._unescapeDiv.innerHTML
-      }
-      return word
-    })
-    return this._processedKeywords
+    return keywords.map(String)
+  }
+
+  escapeHTML (value) {
+    return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]))
+  }
+
+  safeURL (value) {
+    try {
+      const url = new URL(value, location.origin)
+      return /^https?:$/.test(url.protocol) && url.origin === location.origin && !url.username && !url.password ? url : null
+    } catch { return null }
   }
 
   getIndexByWord (words, text, caseSensitive = false) {
@@ -101,96 +104,94 @@ class LocalSearch {
     const parts = []
     let index = slice.start
     for (const { position, length } of slice.hits) {
-      parts.push(val.substring(index, position))
+      parts.push(this.escapeHTML(val.substring(index, position)))
       index = position + length
-      parts.push(`<mark class="search-keyword">${val.substring(position, position + length)}</mark>`)
+      parts.push(`<mark class="search-keyword">${this.escapeHTML(val.substring(position, position + length))}</mark>`)
     }
-    parts.push(val.substring(index, slice.end))
+    parts.push(this.escapeHTML(val.substring(index, slice.end)))
     return parts.join('')
   }
 
   getResultItems (keywords) {
     const resultItems = []
-    this._processedKeywords = null
-    // Compute highlight param once instead of per-article
-    const highlightParam = keywords.join(' ')
-    this.datas.forEach(({ title, content, url }) => {
-      // The number of different keywords included in the article.
+    keywords = [...new Set(keywords.map(word => word.trim().toLowerCase()).filter(Boolean))]
+    if (!keywords.length) return resultItems
+    const query = keywords.join(' ')
+    this.datas.forEach((data, id) => {
+      const { title, status, status_label } = data
+      const content = data.content || ''
+      const url = this.safeURL(data.url)
+      if (!url) return
+      const categories = Array.isArray(data.categories) ? data.categories.filter(value => typeof value === 'string') : []
+      const tags = Array.isArray(data.tags) ? data.tags.filter(value => typeof value === 'string') : []
+      const headings = Array.isArray(data.headings) ? data.headings.filter(value => typeof value === 'string') : []
+      const metadata = [...categories, ...tags, url.pathname, ...headings].join(' ')
+      const matchingSections = headings.filter(heading => keywords.every(word => heading.toLowerCase().includes(word))).map(heading => ({
+        position: content.indexOf(heading),
+        rank: heading.toLowerCase().replace(/^[\d.\s]+/, '') === query ? 2 : 1
+      })).filter(section => section.position >= 0)
       const [indexOfTitle, keysOfTitle] = this.getIndexByWord(keywords, title)
       const [indexOfContent, keysOfContent] = this.getIndexByWord(keywords, content)
-      const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size
-
-      // Show search results
-      const hitCount = indexOfTitle.length + indexOfContent.length
-      if (hitCount === 0) return
-
-      const slicesOfTitle = []
-      if (indexOfTitle.length !== 0) {
-        slicesOfTitle.push(this.mergeIntoSlice(0, title.length, indexOfTitle))
-      }
-
-      let slicesOfContent = []
+      const [, keysOfSearch] = this.getIndexByWord(keywords, data.search_text || content)
+      const [, keysOfMeta] = this.getIndexByWord(keywords, metadata)
+      const includedCount = new Set([...keysOfTitle, ...keysOfContent, ...keysOfSearch, ...keysOfMeta]).size
+      if (!includedCount) return
+      const titleLower = title.toLowerCase()
+      const titleRank = titleLower === query ? 4 : titleLower.startsWith(query) ? 3 : keysOfTitle.size === keywords.length ? 2 : keysOfTitle.size ? 1 : 0
+      const hitCount = Math.min(indexOfContent.length, 20)
+      const titleSlice = indexOfTitle.length ? this.mergeIntoSlice(0, title.length, indexOfTitle) : { start: 0, end: title.length, hits: [] }
+      const slicesOfContent = []
       while (indexOfContent.length !== 0) {
-        const item = indexOfContent[0]
-        const { position } = item
-        // Cut out 120 characters. The maxlength of .search-input is 80.
-        const start = Math.max(0, position - 20)
-        const end = Math.min(content.length, position + 100)
-        slicesOfContent.push(this.mergeIntoSlice(start, end, indexOfContent))
+        const { position } = indexOfContent[0]
+        let start = Math.max(0, position - 45)
+        const boundary = content.slice(start, position).search(/[。！？]\s*|\.\s+/)
+        if (boundary >= 0) start += boundary + 1
+        const end = Math.min(content.length, Math.max(position + indexOfContent[0].word.length, position + 130, start + 190))
+        const slice = this.mergeIntoSlice(start, end, indexOfContent)
+        slice.sectionRank = matchingSections.reduce((rank, section) => section.position >= start && section.position < end ? Math.max(rank, section.rank) : rank, 0)
+        slicesOfContent.push(slice)
       }
-
-      // Sort slices in content by included keywords' count and hits' count
-      slicesOfContent.sort((left, right) => {
-        if (left.count !== right.count) {
-          return right.count - left.count
-        } else if (left.hits.length !== right.hits.length) {
-          return right.hits.length - left.hits.length
-        }
-        return left.start - right.start
+      // Prefer an early explanation over a later paragraph repeating the same term.
+      slicesOfContent.sort((left, right) => right.count - left.count || right.sectionRank - left.sectionRank || left.start - right.start)
+      url.searchParams.set('highlight', query)
+      let resultItem = `<li class="local-search-hit-item"><a href="${this.escapeHTML(url.href)}"><div class="search-result-heading"><span class="search-result-title">${this.highlightKeyword(title, titleSlice)}</span>`
+      if (['planned', 'updating', 'completed'].includes(status) && typeof status_label === 'string') {
+        resultItem += `<span class="article-status article-status--${status}" data-status="${status}">${this.escapeHTML(status_label)}</span>`
+      }
+      resultItem += '</div>'
+      const meta = [categories.join(' / '), /^\d{4}-\d{2}-\d{2}$/.test(data.date || '') ? data.date : ''].filter(Boolean)
+      if (meta.length) resultItem += `<div class="search-result-meta">${meta.map(value => this.escapeHTML(value)).join('<span aria-hidden="true"> · </span>')}</div>`
+      const count = Math.max(1, parseInt(this.top_n_per_article, 10) || 1)
+      if (!slicesOfContent.length) {
+        const fallback = data.description || content
+        if (fallback) resultItem += `<p class="search-result">${this.escapeHTML(fallback.slice(0, 190))}${fallback.length > 190 ? '…' : ''}</p>`
+      }
+      slicesOfContent.slice(0, count).forEach(slice => {
+        resultItem += `<p class="search-result">${slice.start ? '…' : ''}${this.highlightKeyword(content, slice)}${slice.end < content.length ? '…' : ''}</p>`
       })
-
-      // Select top N slices in content
-      const upperBound = parseInt(this.top_n_per_article, 10)
-      if (upperBound >= 0) {
-        slicesOfContent = slicesOfContent.slice(0, upperBound)
-      }
-
-      let resultItem = ''
-
-      url = new URL(url, location.origin)
-      url.searchParams.append('highlight', highlightParam)
-
-      if (slicesOfTitle.length !== 0) {
-        resultItem += `<li class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
-      } else {
-        resultItem += `<li class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
-      }
-
-      slicesOfContent.forEach(slice => {
-        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p>`
-      })
-
       resultItem += '</a></li>'
-      resultItems.push({
-        item: resultItem,
-        id: resultItems.length,
-        hitCount,
-        includedCount
-      })
+      resultItems.push({ item: resultItem, id, hitCount, includedCount, titleRank, metaCount: keysOfMeta.size })
     })
     return resultItems
   }
 
+  static compareResults (left, right) {
+    return right.includedCount - left.includedCount || right.titleRank - left.titleRank || right.metaCount - left.metaCount || right.hitCount - left.hitCount || left.id - right.id
+  }
+
   fetchData () {
+    if (this.isfetched) return Promise.resolve(true)
+    if (this.fetchPromise) return this.fetchPromise
+    this.loadError = null
     const isXml = !this.path.endsWith('json')
-    fetch(this.path)
+    window.dispatchEvent(new Event('search:loading'))
+    this.fetchPromise = fetch(this.path)
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         return response.text()
       })
       .then(res => {
         // Get the contents from search data
-        this.isfetched = true
         this.datas = isXml
           ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(element => ({
               title: element.querySelector('title').textContent,
@@ -199,21 +200,26 @@ class LocalSearch {
             }))
           : JSON.parse(res)
         // Only match articles with non-empty titles
-        this.datas = this.datas.filter(data => data.title).map(data => {
-          data.title = data.title.trim()
-          data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
-          data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
-          return data
-        })
-        // Remove loading animation
+        if (!Array.isArray(this.datas)) throw new Error('Invalid search index')
+        this.datas = this.datas.filter(data => data && typeof data.title === 'string' && data.title.trim() && typeof data.url === 'string').map(data => ({
+          ...data,
+          title: data.title.trim(),
+          content: typeof data.content === 'string' ? data.content.trim() : '',
+          search_text: typeof data.search_text === 'string' ? data.search_text : '',
+          description: typeof data.description === 'string' ? data.description : ''
+        }))
+        this.isfetched = true
         window.dispatchEvent(new Event('search:loaded'))
+        return true
       })
       .catch(error => {
         console.error('Local search data fetch failed:', error)
-        this.isfetched = true
-        this.datas = []
-        window.dispatchEvent(new Event('search:loaded'))
+        this.loadError = error
+        window.dispatchEvent(new Event('search:error'))
+        return false
       })
+      .finally(() => { this.fetchPromise = null })
+    return this.fetchPromise
   }
 
   // Highlight by wrapping node in mark elements with the given class name
@@ -243,7 +249,7 @@ class LocalSearch {
     const walk = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null)
     const allNodes = []
     while (walk.nextNode()) {
-      if (!walk.currentNode.parentNode.matches('button, select, textarea, .mermaid')) allNodes.push(walk.currentNode)
+      if (!walk.currentNode.parentElement.closest('button, select, textarea, script, style, pre, code, .mermaid, .katex, .search-keyword')) allNodes.push(walk.currentNode)
     }
     allNodes.forEach(node => {
       const [indexOfNode] = this.getIndexByWord(keywords, node.nodeValue)
@@ -254,7 +260,8 @@ class LocalSearch {
   }
 }
 
-window.addEventListener('load', () => {
+// Search should be usable before remote images/fonts and counters finish loading.
+window.addEventListener('DOMContentLoaded', () => {
   // Search
   const { path, top_n_per_article, unescape, languages, pagination } = GLOBAL_CONFIG.localSearch
   const enablePagination = pagination && pagination.enable
@@ -272,11 +279,12 @@ window.addEventListener('load', () => {
   const $results = document.getElementById('local-search-results')
   const $pagination = document.getElementById('local-search-pagination')
   const $paginationList = document.querySelector('#local-search-pagination .ais-Pagination-list')
-  const isXml = !path.endsWith('json')
+  const $loadDataItem = document.getElementById('loading-database')
+  const $error = document.getElementById('local-search-error')
 
   // Pagination variables (only initialize if pagination is enabled)
   let currentPage = 0
-  const hitsPerPage = pagination.hitsPerPage || 10
+  const hitsPerPage = (pagination && pagination.hitsPerPage) || 10
 
   let currentResultItems = []
 
@@ -287,7 +295,7 @@ window.addEventListener('load', () => {
 
   // Show/hide search results area
   const toggleResultsVisibility = hasResults => {
-    $pagination.style.display = (hasResults && enablePagination) ? '' : 'none'
+    $pagination.style.display = (hasResults && enablePagination && currentResultItems.length > hitsPerPage) ? '' : 'none'
   }
 
   // Render search results for current page
@@ -304,23 +312,12 @@ window.addEventListener('load', () => {
       return
     }
 
-    // Add numbering to items
-    const numberedItems = itemsToDisplay.map((result, index) => {
-      const itemNumber = enablePagination
-        ? currentPage * hitsPerPage + index + 1
-        : index + 1
-      return result.item.replace(
-        '<li class="local-search-hit-item">',
-        `<li class="local-search-hit-item" value="${itemNumber}">`
-      )
-    })
-
-    $results.innerHTML = `<ol class="search-result-list">${numberedItems.join('')}</ol>`
+    $results.innerHTML = `<ul class="search-result-list">${itemsToDisplay.map(result => result.item).join('')}</ul>`
 
     // Update stats
     const displayCount = enablePagination ? currentResultItems.length : resultItems.length
     const stats = languages.hits_stats.replace(/\$\{hits}/, displayCount)
-    $statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`
+    $statsItem.textContent = stats
 
     // Handle pagination
     if (enablePagination) {
@@ -369,7 +366,7 @@ window.addEventListener('load', () => {
     // Add middle page numbers
     for (let i = startPage; i <= endPage; i++) {
       if (i === page) {
-        parts.push(`<li class="ais-Pagination-item ais-Pagination-item--page ais-Pagination-item--selected"><span class="ais-Pagination-link" aria-label="Page ${i + 1}">${i + 1}</span></li>`)
+        parts.push(`<li class="ais-Pagination-item ais-Pagination-item--page ais-Pagination-item--selected"><span class="ais-Pagination-link" aria-current="page" aria-label="第 ${i + 1} 页">${i + 1}</span></li>`)
       } else {
         parts.push(`<li class="ais-Pagination-item ais-Pagination-item--page"><a class="ais-Pagination-link" aria-label="Page ${i + 1}" href="#" data-page="${i}">${i + 1}</a></li>`)
       }
@@ -421,13 +418,17 @@ window.addEventListener('load', () => {
   }
 
   const inputEventFunction = () => {
+    const searchText = $input.value.trim()
+    if (!searchText) {
+      clearSearchResults()
+      $loadingStatus.hidden = true
+      return
+    }
     if (!localSearch.isfetched) return
-    let searchText = $input.value.trim().toLowerCase()
-    isXml && (searchText = searchText.replace(/</g, '&lt;').replace(/>/g, '&gt;'))
 
     if (searchText !== '') $loadingStatus.hidden = false
 
-    const keywords = searchText.split(/[-\s]+/)
+    const keywords = searchText.toLowerCase().split(/\s+/)
     let resultItems = []
 
     if (searchText.length > 0) {
@@ -440,14 +441,7 @@ window.addEventListener('load', () => {
       showNoResults(searchText)
     } else {
       // Sort results by relevance
-      resultItems.sort((left, right) => {
-        if (left.includedCount !== right.includedCount) {
-          return right.includedCount - left.includedCount
-        } else if (left.hitCount !== right.hitCount) {
-          return right.hitCount - left.hitCount
-        }
-        return right.id - left.id
-      })
+      resultItems.sort(LocalSearch.compareResults)
 
       if (enablePagination) {
         currentResultItems = resultItems
@@ -468,10 +462,15 @@ window.addEventListener('load', () => {
       inputEventFunction()
       return
     }
-    searchTimeout = setTimeout(inputEventFunction, 200)
+    if (!eventIsComposing) searchTimeout = setTimeout(inputEventFunction, 150)
   }
 
-  let loadFlag = false
+  let eventIsComposing = false
+  let opener = null
+  let focusTimer
+  $input.addEventListener('input', debouncedInputEvent)
+  $input.addEventListener('compositionstart', () => { eventIsComposing = true; clearTimeout(searchTimeout) })
+  $input.addEventListener('compositionend', () => { eventIsComposing = false; debouncedInputEvent() })
 
   const fixSafariHeight = () => {
     if (window.innerWidth < 768) {
@@ -487,22 +486,32 @@ window.addEventListener('load', () => {
   }
 
   const handleEscape = event => {
-    if (event.code === 'Escape') {
+    if (event.key === 'Escape' || event.code === 'Escape') {
+      event.preventDefault()
       closeSearch()
-      document.removeEventListener('keydown', handleEscape)
+    } else if (event.key === 'Tab') {
+      const focusable = [...$searchDialog.querySelectorAll('input,button,a[href]')].filter(node => node.getClientRects().length && !node.disabled)
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && (document.activeElement === first || !$searchDialog.contains(document.activeElement))) {
+        event.preventDefault()
+        last && last.focus()
+      } else if (!event.shiftKey && (document.activeElement === last || !$searchDialog.contains(document.activeElement))) {
+        event.preventDefault()
+        first && first.focus()
+      }
     }
   }
 
   const openSearch = () => {
+    opener = document.activeElement
     btf.overflowPaddingR.add()
     btf.animateIn($searchMask, 'to_show 0.5s')
     btf.animateIn($searchDialog, 'titleScale 0.5s')
-    setTimeout(() => { $input.focus() }, 300)
-    if (!loadFlag) {
-      !localSearch.isfetched && localSearch.fetchData()
-      $input.addEventListener('input', debouncedInputEvent)
-      loadFlag = true
-    }
+    $searchDialog.style.display = 'flex'
+    clearTimeout(focusTimer)
+    focusTimer = setTimeout(() => { $input.focus() }, 300)
+    if (!localSearch.isfetched && !localSearch.loadError) localSearch.fetchData()
     // shortcut: ESC
     document.addEventListener('keydown', handleEscape)
 
@@ -511,11 +520,13 @@ window.addEventListener('load', () => {
   }
 
   const closeSearch = () => {
+    clearTimeout(focusTimer)
     btf.overflowPaddingR.remove()
     btf.animateOut($searchDialog, 'search_close .5s')
     btf.animateOut($searchMask, 'to_hide 0.5s')
     document.removeEventListener('keydown', handleEscape)
     window.removeEventListener('resize', onResize)
+    if (opener && opener.isConnected) opener.focus({ preventScroll: true })
   }
 
   const searchClickFn = () => {
@@ -524,6 +535,7 @@ window.addEventListener('load', () => {
 
   const searchFnOnce = () => {
     document.querySelector('#local-search .search-close-button').addEventListener('click', closeSearch)
+    document.querySelector('#local-search .search-retry').addEventListener('click', () => { localSearch.fetchData() })
     $searchMask.addEventListener('click', closeSearch)
     if (GLOBAL_CONFIG.localSearch.preload) {
       localSearch.fetchData()
@@ -540,6 +552,7 @@ window.addEventListener('load', () => {
           if (!isNaN(page) && currentResultItems.length > 0) {
             currentPage = page
             renderResults($input.value.trim().toLowerCase(), currentResultItems)
+            $results.querySelector('.search-result-list').scrollTop = 0
           }
         }
       })
@@ -549,14 +562,31 @@ window.addEventListener('load', () => {
     toggleResultsVisibility(false)
   }
 
+  window.addEventListener('search:loading', () => {
+    $loadDataItem.hidden = false
+    $error.hidden = true
+    $results.setAttribute('aria-busy', 'true')
+  })
   window.addEventListener('search:loaded', () => {
-    const $loadDataItem = document.getElementById('loading-database')
-    $loadDataItem.nextElementSibling.style.visibility = 'visible'
-    $loadDataItem.remove()
+    $loadDataItem.hidden = true
+    $error.hidden = true
+    $results.removeAttribute('aria-busy')
+    inputEventFunction()
+  })
+  window.addEventListener('search:error', () => {
+    $loadDataItem.hidden = true
+    $loadingStatus.hidden = true
+    $error.hidden = false
+    $results.removeAttribute('aria-busy')
   })
 
   searchClickFn()
   searchFnOnce()
+  // The legacy view counter temporarily replaces the URL while loading.
+  // Re-read restored search parameters after that request, without delaying the UI.
+  window.addEventListener('load', () => {
+    localSearch.highlightSearchWords(document.getElementById('article-container'))
+  }, { once: true })
 
   // pjax
   window.addEventListener('pjax:complete', () => {

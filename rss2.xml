@@ -12,13 +12,7 @@
     <item>
       <title>从一个向量开始，我注意到了Transformer</title>
       <link>https://fufffh.github.io/posts/Transformer/</link>
-      <description>
-        <![CDATA[<div id="postchat_postcontent"><h1>更新日志</h1>
-<p>2026.10.05：博客创建。</p>
-<p>2026.10.06：完成第0、1、2章。</p>
-<p>2026.10.07：完成4.1、4.2、4.3。</p>
-<p>2026.1]]>
-      </description>
+      <description>从文字如何变成数字和向量讲起，逐步梳理数学符号、机器学习与神经网络基础，再理解 Transformer 的注意力机制。</description>
       <author>Fufffh</author>
       <category domain="https://fufffh.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</category>
       <category domain="https://fufffh.github.io/tags/Transformer/">Transformer</category>
@@ -33,10 +27,7 @@
     <item>
       <title>数模精讲·国赛24A（板凳龙闹元宵）</title>
       <link>https://fufffh.github.io/posts/DragonDance24A/</link>
-      <description>
-        <![CDATA[<div id="postchat_postcontent"><p>敬请期待</p>
-</div>]]>
-      </description>
+      <description>围绕板凳龙问题，梳理螺线运动、位置递推、碰撞检测与调头路径的建模思路。</description>
       <author>Fufffh</author>
       <category domain="https://fufffh.github.io/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</category>
       <category domain="https://fufffh.github.io/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</category>
