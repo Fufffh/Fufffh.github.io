@@ -519,130 +519,8 @@ document.addEventListener('DOMContentLoaded', () => {
   * toc, anchor
   */
   const scrollFnToDo = $article => {
-    const isToc = GLOBAL_CONFIG_SITE.isToc
-    const isAnchor = GLOBAL_CONFIG.isAnchor
-
-    if (!($article && (isToc || isAnchor))) return
-
-    let $tocLink, $cardToc, autoScrollToc, $tocPercentage, isExpand
-
-    if (isToc) {
-      const $cardTocLayout = document.getElementById('card-toc')
-      $cardToc = $cardTocLayout.querySelector('.toc-content')
-      $tocLink = $cardToc.querySelectorAll('.toc-link')
-      $tocPercentage = $cardTocLayout.querySelector('.toc-percentage')
-      isExpand = $cardToc.classList.contains('is-expand')
-
-      const tocItemClickFn = e => {
-        const target = e.target.closest('.toc-link')
-        if (!target) return
-
-        e.preventDefault()
-        btf.scrollToDest(btf.getEleTop(document.getElementById(decodeURI(target.getAttribute('href')).replace('#', ''))), 300)
-        if (window.innerWidth < 900) {
-          $cardTocLayout.classList.remove('open')
-        }
-      }
-
-      btf.addEventListenerPjax($cardToc, 'click', tocItemClickFn)
-
-      autoScrollToc = item => {
-        const sidebarHeight = $cardToc.clientHeight
-        const itemOffsetTop = item.offsetTop
-        const itemHeight = item.clientHeight
-        const scrollTop = $cardToc.scrollTop
-        const offset = itemOffsetTop - scrollTop
-        const middlePosition = (sidebarHeight - itemHeight) / 2
-
-        if (offset !== middlePosition) {
-          $cardToc.scrollTop = scrollTop + (offset - middlePosition)
-        }
-      }
-
-      $cardToc.style.display = 'block'
-    }
-
-    const $articleList = $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
-    if (!$articleList.length) return
-
-    let activeTocItem = null
-    let activeParentItems = []
-
-    const updateTocUI = currentId => {
-      const encodedAnchor = currentId ? '#' + encodeURI(decodeURI(currentId)) : ''
-      if (isAnchor) btf.updateAnchor(encodedAnchor)
-
-      if (!isToc) return
-
-      if (activeTocItem) activeTocItem.classList.remove('active')
-      activeParentItems.forEach(i => i.classList.remove('active'))
-      activeParentItems = []
-
-      if (!currentId) {
-        activeTocItem = null
-        return
-      }
-
-      const targetLink = Array.from($tocLink).find(link => {
-        const href = link.getAttribute('href')
-        if (!href) return false
-        return decodeURI(href).replace('#', '') === decodeURI(currentId)
-      })
-
-      if (!targetLink) return
-
-      targetLink.classList.add('active')
-      activeTocItem = targetLink
-      setTimeout(() => autoScrollToc(targetLink), 0)
-
-      if (!isExpand) {
-        let parent = targetLink.parentNode
-        while (!parent.matches('.toc')) {
-          if (parent.matches('li')) {
-            parent.classList.add('active')
-            activeParentItems.push(parent)
-          }
-          parent = parent.parentNode
-        }
-      }
-    }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-60px 0px -80% 0px',
-      threshold: 0
-    }
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          updateTocUI(entry.target.id)
-        }
-      })
-    }, observerOptions)
-
-    $articleList.forEach(ele => observer.observe(ele))
-
-    const scrollHandler = btf.rafThrottle(() => {
-      const currentTop = window.scrollY || document.documentElement.scrollTop
-
-      if (isToc && GLOBAL_CONFIG.percent.toc) {
-        $tocPercentage.textContent = btf.getScrollPercent(currentTop, $article)
-      }
-
-      if (currentTop === 0) {
-        updateTocUI('')
-      } else if (currentTop + window.innerHeight >= document.documentElement.scrollHeight - 10) {
-        const lastHeader = $articleList[$articleList.length - 1]
-        updateTocUI(lastHeader.id)
-      }
-    })
-
-    btf.addEventListenerPjax(window, 'scroll', scrollHandler, { passive: true })
-
-    btf.addGlobalFn('pjaxSendOnce', () => {
-      observer.disconnect()
-    })
+    // Native heading links remain usable if the enhancement cannot load.
+    window.FufffhArticleToc?.init($article)
   }
 
   const handleThemeChange = mode => {
@@ -716,6 +594,10 @@ document.addEventListener('DOMContentLoaded', () => {
       $htmlDom.toggle('hide-aside')
     },
     'mobile-toc-button': (p, item) => { // Show mobile toc
+      if (window.FufffhArticleToc) {
+        window.FufffhArticleToc.toggleMobile(item)
+        return
+      }
       const tocEle = document.getElementById('card-toc')
       tocEle.style.transition = 'transform 0.3s ease-in-out'
 

@@ -8322,9 +8322,6 @@ blockquote.pullquote.right {
 #local-search .search-keyword {
   font-weight: 600;
 }
-#local-search #loading-database ~ * {
-  visibility: hidden;
-}
 @-moz-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
